@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <!-- Configurações básicas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título da página -->
+    <title>Quiz Acadêmico</title>
+
+    <!-- Arquivo CSS -->
+    <link rel="stylesheet" href="./../css/quiz.css">
+
+</head>
+<body>
+
+    <!-- ========================= -->
+    <!-- TELA INICIAL -->
+    <!-- ========================= -->
+
+    <div class="container" id="startScreen">
+
+        <h1>Quiz Acadêmico</h1>
+
+        <p>
+            Teste seus conhecimentos e descubra sua posição no ranking.
+        </p>
+
+        <!-- Botão iniciar -->
+        <button class="btn" onclick="startQuiz()">
+            Iniciar Quiz
+        </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- TELA DO QUIZ -->
+    <!-- ========================= -->
+
+    <div class="container" id="quizScreen" style="display:none;">
+
+        <div class="question-box">
+
+            <!-- Número da pergunta -->
+            <span class="question-number">
+                Pergunta 1
+            </span>
+
+            <!-- Pergunta -->
+            <h2>
+                Qual linguagem roda diretamente no navegador?
+            </h2>
+
+            <!-- Alternativas -->
+
+            <label class="option">
+                <input type="radio" name="answer">
+                Java
+            </label>
+
+            <label class="option">
+                <input type="radio" name="answer">
+                Python
+            </label>
+
+            <label class="option">
+                <input type="radio" name="answer">
+                JavaScript
+            </label>
+
+            <label class="option">
+                <input type="radio" name="answer">
+                C#
+            </label>
+
+        </div>
+
+        <!-- Botão próxima -->
+        <button class="btn" onclick="showResult()">
+            Próxima Pergunta
+        </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- RESULTADO FINAL -->
+    <!-- ========================= -->
+
+    <div class="container" id="resultScreen" style="display:none;">
+
+        <div class="result-box">
+
+            <h1>Quiz Finalizado</h1>
+
+            <!-- Pontuação -->
+            <div class="score">
+                8/10 Pontos
+            </div>
+
+            <p>
+                Excelente desempenho no quiz.
+            </p>
+
+            <!-- Botões -->
+            <button class="btn" onclick="showRanking()">
+                Ver Ranking
+            </button>
+
+            <button class="btn" onclick="restartQuiz()">
+                Jogar Novamente
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- RANKING -->
+    <!-- ========================= -->
+
+    <div class="container" id="rankingScreen" style="display:none;">
+
+        <h1>Ranking</h1>
+
+        <!-- Tabela ranking -->
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>#</th>
+                    <th>Jogador</th>
+                    <th>Pontos</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>1</td>
+                    <td>Tiago</td>
+                    <td>10</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>Ana</td>
+                    <td>9</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>Vinicius</td>
+                    <td>8</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>Carlos</td>
+                    <td>7</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <!-- Botão voltar -->
+        <button class="btn" onclick="restartQuiz()">
+            Voltar ao Início
+        </button>
+
+    </div>
+
+    <!-- Arquivo JavaScript -->
+    <script src="./../public/js/script.js"></script>
+
+</body>
+</html>

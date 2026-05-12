@@ -1,0 +1,355 @@
+/* ========================= */
+/* CONFIGURAÇÕES GERAIS */
+/* ========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+body{
+
+    min-height:100vh;
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #4c1d95,
+        #1e3a8a
+    );
+
+    color:#e0e7ff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+/* ========================= */
+/* EFEITO ESTRELAS */
+/* ========================= */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    top:0;
+    left:0;
+
+    background: radial-gradient(
+        white 1px,
+        transparent 1px
+    );
+
+    background-size:25px 25px;
+
+    opacity:0.3;
+
+    z-index:-1;
+}
+
+/* ========================= */
+/* CARD PRINCIPAL */
+/* ========================= */
+
+.container{
+
+    width:100%;
+    max-width:700px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    background: rgba(15, 23, 42, 0.85);
+
+    box-shadow:
+    0 0 20px rgba(139,92,246,0.6),
+    0 0 40px rgba(59,130,246,0.4);
+
+    backdrop-filter: blur(8px);
+}
+
+/* ========================= */
+/* TÍTULOS */
+/* ========================= */
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    font-size:40px;
+
+    color:white;
+}
+
+p{
+
+    text-align:center;
+
+    color:#cbd5e1;
+
+    margin-bottom:25px;
+}
+
+/* ========================= */
+/* BOTÕES */
+/* ========================= */
+
+.btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background: linear-gradient(
+        90deg,
+        #7c3aed,
+        #3b82f6
+    );
+
+    color:white;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    margin-top:15px;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 10px rgba(59,130,246,0.6);
+}
+
+/* Hover botão */
+
+.btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+    0 0 15px rgba(139,92,246,0.9),
+    0 0 30px rgba(59,130,246,0.7);
+}
+
+/* ========================= */
+/* QUIZ */
+/* ========================= */
+
+.question-number{
+
+    display:inline-block;
+
+    margin-bottom:15px;
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    background:#2a004d;
+
+    color:#cbd5e1;
+
+    font-size:14px;
+}
+
+.question-box h2{
+
+    margin-bottom:25px;
+
+    font-size:28px;
+
+    color:white;
+}
+
+/* ========================= */
+/* ALTERNATIVAS */
+/* ========================= */
+
+.option{
+
+    display:block;
+
+    background:#2a004d;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    border:2px solid transparent;
+}
+
+/* Hover alternativa */
+
+.option:hover{
+
+    transform:scale(1.02);
+
+    border-color:#7c3aed;
+
+    box-shadow:
+    0 0 15px rgba(139,92,246,0.5);
+}
+
+/* Espaço input */
+
+.option input{
+    margin-right:10px;
+}
+
+/* Alternativa selecionada */
+
+.selected{
+
+    border:2px solid #3b82f6;
+
+    background: linear-gradient(
+        90deg,
+        #7c3aed,
+        #3b82f6
+    );
+}
+
+/* ========================= */
+/* RESULTADO */
+/* ========================= */
+
+.result-box{
+    text-align:center;
+}
+
+/* Pontuação */
+
+.score{
+
+    font-size:45px;
+
+    font-weight:bold;
+
+    margin:25px 0;
+
+    color:white;
+
+    text-shadow:
+    0 0 10px rgba(59,130,246,0.7);
+}
+
+/* ========================= */
+/* TABELA RANKING */
+/* ========================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:25px;
+
+    overflow:hidden;
+
+    border-radius:15px;
+}
+
+/* Cabeçalho */
+
+th{
+
+    background: linear-gradient(
+        90deg,
+        #7c3aed,
+        #3b82f6
+    );
+
+    padding:15px;
+
+    color:white;
+}
+
+/* Colunas */
+
+td{
+
+    padding:15px;
+
+    text-align:center;
+}
+
+/* Linhas pares */
+
+tr:nth-child(even){
+    background:#1e1b4b;
+}
+
+/* Linhas ímpares */
+
+tr:nth-child(odd){
+    background:#0f172a;
+}
+
+/* Hover linhas */
+
+tr:hover{
+    background:#312e81;
+}
+
+/* ========================= */
+/* RESPONSIVIDADE */
+/* ========================= */
+
+@media(max-width:700px){
+
+    .container{
+        padding:25px;
+    }
+
+    h1{
+        font-size:30px;
+    }
+
+    .question-box h2{
+        font-size:22px;
+    }
+
+    .score{
+        font-size:35px;
+    }
+
+    th, td{
+        font-size:14px;
+        padding:10px;
+    }
+
+}
