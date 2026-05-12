@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - Login </title>
+<link rel="stylesheet" href="./../css/login.css">
+
+</head>
+
+<body>
+
+<div class="container">
+    
+    <div class="left">
+        <h1>ENTRE NO JOGO E <br><span>FAÇA HISTÓRIA!</span></h1>
+    </div>
+
+    <div class="right">
+        <div class="form-box">
+            <h2>SIGN IN</h2>
+
+            <input type="email" placeholder="Yourname@gmail.com" class="input">
+
+            <input type="password" placeholder="Password" class="input">
+            <a class="password" href="/views/redefinir.html"forgot-password>Esqueceu sua senha?</a>
+            <br>
+
+            <button class="btn">Sign up</button>
+
+            <div class="divider">Ou continue com</div>
+            
+
+            <div class="social">
+                <button class="btn2" id="googleLogin">Google</button>
+                <button class="btn2" id="githubLogin">GitHub</button>
+            </div>
+
+            <div class="divider">Não possui uma conta?</div>
+            <button class="btn" id="botaoCadastro">Cadastre-se!</button>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="module" src="./../services/auth.js"></script>
+
+<script>
+    const botao =
+    document.getElementById("botaoCadastro");
+
+    botao.addEventListener("click", () => {
+        window.location.href = "/views/cadastro.html"
+    });
+
+</script>
+
+</body>
+</html>
