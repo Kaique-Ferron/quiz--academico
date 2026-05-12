@@ -1,0 +1,177 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color: #e0e7ff;
+    background: linear-gradient(135deg,#0f172a,#4c1d95, #1e3a8a);
+   
+}
+
+
+.container{
+    width:1000px;
+    height:600px;
+    display:flex;
+    border-radius:20px;
+    overflow:hidden;
+    
+    box-shadow: 
+    0 0 5px rgba(139,92,246,0.6),
+    0 0 15px rgba(255,255,255,0.6),
+    0 0 30px rgba(59, 130, 246, 0.4),
+    0 0 60px rgba(0, 0, 0, 0);
+    
+}
+
+
+/* LADO ESQUERDO */
+.left{
+    flex:1;
+    background: radial-gradient(circle at top left,#000000,#2b1a6d 60%);
+    color:white;
+    position:relative;
+    padding:40px;
+    background-image: url('/public/imgs/quiz.png');
+    background-position: center;   /* CENTRALIZA */
+    background-repeat: no-repeat;  /* evita repetição */
+    background-size: contain;      /* mantém a imagem inteira visível */
+}
+
+.left h1{
+    position:absolute;
+    bottom:40px;
+    font-size:32px;
+    margin-bottom: 10px;
+    color: #a78bfa;
+    text-shadow: 0 0 10px rgba(167,139,250,0.8);
+}
+
+.left span{
+    color:#01e6ff;
+    text-shadow: 0 0 10px #77f1ff;
+}
+
+/* estrelas */
+.left::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background: radial-gradient(white 1px, transparent 1px);
+    background-size: 25px 25px;
+    opacity:0.3;
+}
+
+/* LADO DIREITO */
+.right{
+    flex:1;
+    background:#1a0c36;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.right h2 {
+    text-shadow: 0 0 10px whitesmoke;
+}
+
+.form-box{
+    width:70%;
+}
+
+.form-box h2{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+    padding:15px;
+    margin:15px 0;
+    border:none;
+    border-radius:10px;
+    background:#2c1a5a;
+    color:white;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background: linear-gradient(90deg,#7c3aed,#3b82f6);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(59,130,246,0.6);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 
+    0 0 15px rgba(139,92,246,0.9),
+    0 0 30px rgba(59,130,246,0.7);
+}
+
+.divider{
+    text-align:center;
+    margin:20px 0;
+    opacity:0.5;
+}
+
+.social{
+    display:flex;
+    gap:10px;
+}
+
+.social button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#2c1a5a;
+    color:white;
+    cursor:pointer;
+    background: linear-gradient(90deg,#7c3aed,#3b82f6);
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(59,130,246,0.6);
+
+}
+
+.social button:hover{
+
+    transform: scale(1.05);
+    box-shadow: 
+    0 0 15px rgba(139,92,246,0.9),
+    0 0 30px rgba(59,130,246,0.7);
+
+}
+
+.btncadastro{
+    text-decoration: none; 
+  color: white;          
+}
+
+.small{
+    font-size:12px;
+    opacity:0.6;
+    margin-top:15px;
+    text-align:center;
+}
+
+.password{
+        color:#01e6ff;
+}
