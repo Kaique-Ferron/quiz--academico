@@ -1,10 +1,8 @@
 DROP DATABASE IF EXISTS quiz;
-CREATE DATABASE quiz;
-USE quiz;
 
--- =========================================================
--- TABELAS
--- =========================================================
+CREATE DATABASE quiz;
+
+USE quiz;
 
 CREATE TABLE curso (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,14 +11,14 @@ CREATE TABLE curso (
 );
 
 CREATE TABLE disciplina (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     modulo int not null,
     sigla VARCHAR(20),
     id_curso INT,
-    FOREIGN KEY (id_curso) REFERENCES curso(id)
-        ON DELETE SET NULL
-        ON UPDATE CASCADE
+    FOREIGN KEY (id_curso) REFERENCES curso(id) ON DELETE
+    SET
+        NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE usuario (
@@ -36,9 +34,7 @@ CREATE TABLE questao (
     enunciado TEXT NOT NULL,
     pontuacao INT,
     id_disciplina INT,
-    FOREIGN KEY (id_disciplina) REFERENCES disciplina(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    FOREIGN KEY (id_disciplina) REFERENCES disciplina(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE alternativa (
@@ -46,9 +42,7 @@ CREATE TABLE alternativa (
     id_questao INT,
     perguntas VARCHAR(255) NOT NULL,
     correta TINYINT(1) DEFAULT 0,
-    FOREIGN KEY (id_questao) REFERENCES questao(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    FOREIGN KEY (id_questao) REFERENCES questao(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE quiz (
@@ -56,1633 +50,10115 @@ CREATE TABLE quiz (
     data DATE NOT NULL,
     id_usuario INT,
     id_disciplina INT,
-
     id_questao_01 INT,
     id_questao_02 INT,
     id_questao_03 INT,
     id_questao_04 INT,
     id_questao_05 INT,
-
     pontuacao INT DEFAULT 0,
-
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_disciplina) REFERENCES disciplina(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_questao_01) REFERENCES questao(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_questao_02) REFERENCES questao(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_questao_03) REFERENCES questao(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_questao_04) REFERENCES questao(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL,
-
-    FOREIGN KEY (id_questao_05) REFERENCES questao(id)
-        ON UPDATE CASCADE
-        ON DELETE SET NULL
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_disciplina) REFERENCES disciplina(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_questao_01) REFERENCES questao(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_questao_02) REFERENCES questao(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_questao_03) REFERENCES questao(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_questao_04) REFERENCES questao(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL,
+        FOREIGN KEY (id_questao_05) REFERENCES questao(id) ON UPDATE CASCADE ON DELETE
+    SET
+        NULL
 );
 
--- =========================================================
--- CURSO
--- =========================================================
-
-INSERT INTO curso (nome, sigla)
-VALUES ('Desenvolvimento de Sistemas', 'DS');
-
--- =========================================================
--- DISCIPLINAS
--- =========================================================
-
-INSERT INTO disciplina (nome, id_curso, modulo,sigla) VALUES
-
--- Módulo I
-('Programação e Algoritmos', 1, 1,'PA'),
-('Banco de Dados I', 1, 1,'BD1'),
-('Análise e Projeto de Sistemas', 1, 1,'APS'),
-('Design Digital', 1, 1,'DD'),
-('Programação Web I', 1, 1,'PW1'),
-('Fundamentos da Informática', 1, 1,'FI'),
-('Técnicas de Programação', 1, 1,'TP'),
-
--- Módulo II
-('Desenvolvimento de Sistemas', 1, 2,'DS'),
-('Banco de Dados II', 1, 2,'BD2'),
-('Planejamento do Trabalho de Conclusão de Curso (TCC) em Desenvolvimento de Sistemas', 1, 2,'PTCCDS'),
-('Internet e Protocolos', 1, 2,'IP'),
-('Programação de Aplicativos Mobile I', 1, 2,'PAM1'),
-('Programação Web II', 1, 2,'PW2'),
-('Planejamento e Documentação do TCC', 1, 2,'PDTCC'),
-
--- Módulo III
-('Segurança de Sistemas da Informação', 1, 3,'SSI'),
-('Banco de Dados III', 1, 3,'BD3'),
-('Sistemas Embarcados', 1, 3,'SE'),
-('Programação de Aplicativos Mobile II', 1, 3,'PAM2'),
-('Programação Web III', 1, 3,'PW3'),
-('Qualidade e Teste de Software', 1, 3,'QTS'),
-('Desenvolvimento do Trabalho de Conclusão de Curso (TCC) em Desenvolvimento de Sistemas', 1, 3,'DTCCDS');
-
--- =========================================================
--- QUESTÕES - PROGRAMAÇÃO E ALGORITMOS
--- id_disciplina = 1
--- =========================================================
--- =========================================================
--- QUESTÕES COMPLETAS
--- 15 QUESTÕES POR DISCIPLINA
--- 5 FÁCEIS
--- 5 MÉDIAS
--- 5 DIFÍCEIS
--- =========================================================
-
--- =========================================================
--- DISCIPLINA 1
--- PROGRAMAÇÃO E ALGORITMOS
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é um algoritmo?',10,1),
-('Qual estrutura repete comandos?',10,1),
-('O que é uma variável?',10,1),
-('Qual operador faz atribuição?',10,1),
-('Qual comando mostra texto na tela?',10,1),
-
-('Qual estrutura toma decisões?',20,1),
-('O que é um vetor?',20,1),
-('Qual operador representa OU lógico?',20,1),
-('Qual laço executa ao menos uma vez?',20,1),
-('Qual função do break?',20,1),
-
-('O que é recursividade?',30,1),
-('Qual estrutura usa FIFO?',30,1),
-('Complexidade do Bubble Sort?',30,1),
-('O que é abstração?',30,1),
-('Melhor busca em lista ordenada?',30,1);
-
--- =========================================================
--- DISCIPLINA 2
--- BANCO DE DADOS I
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é banco de dados?',10,2),
-('Comando para consultar dados?',10,2),
-('Comando para inserir dados?',10,2),
-('O que é chave primária?',10,2),
-('Qual comando cria tabela?',10,2),
-
-('Qual comando altera registros?',20,2),
-('O que significa SQL?',20,2),
-('Cláusula usada para filtrar?',20,2),
-('Qual comando remove registros?',20,2),
-('O que é chave estrangeira?',20,2),
-
-('O que é normalização?',30,2),
-('Qual JOIN retorna registros relacionados?',30,2),
-('Qual JOIN traz todos da esquerda?',30,2),
-('Função que conta registros?',30,2),
-('O que é índice?',30,2);
-
--- =========================================================
--- DISCIPLINA 3
--- ANÁLISE E PROJETO DE SISTEMAS
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é requisito funcional?',10,3),
-('O que é UML?',10,3),
-('Qual diagrama mostra casos de uso?',10,3),
-('O que representa um ator?',10,3),
-('Qual objetivo da análise?',10,3),
-
-('O que é caso de uso?',20,3),
-('Qual diagrama mostra classes?',20,3),
-('O que é levantamento de requisitos?',20,3),
-('O que é prototipação?',20,3),
-('Qual objetivo do projeto?',20,3),
-
-('O que é encapsulamento?',30,3),
-('O que é herança?',30,3),
-('O que é polimorfismo?',30,3),
-('O que é acoplamento?',30,3),
-('O que é coesão?',30,3);
-
--- =========================================================
--- DISCIPLINA 4
--- DESIGN DIGITAL
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é RGB?',10,4),
-('O que é resolução?',10,4),
-('Qual programa edita imagens?',10,4),
-('O que é tipografia?',10,4),
-('O que é layout?',10,4),
-
-('O que é contraste?',20,4),
-('O que é alinhamento?',20,4),
-('Qual formato possui transparência?',20,4),
-('O que é UX?',20,4),
-('O que é UI?',20,4),
-
-('O que é identidade visual?',30,4),
-('O que é wireframe?',30,4),
-('O que é mockup?',30,4),
-('O que é design responsivo?',30,4),
-('O que é hierarquia visual?',30,4);
-
--- =========================================================
--- DISCIPLINA 5
--- PROGRAMAÇÃO WEB I
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que significa HTML?',10,5),
-('Qual tag cria parágrafo?',10,5),
-('Qual tag cria link?',10,5),
-('Qual linguagem estiliza páginas?',10,5),
-('Qual linguagem adiciona interatividade?',10,5),
-
-('O que é CSS?',20,5),
-('O que é JavaScript?',20,5),
-('Qual tag cria tabela?',20,5),
-('O que é responsividade?',20,5),
-('O que faz o flexbox?',20,5),
-
-('O que é DOM?',30,5),
-('O que é API?',30,5),
-('O que é JSON?',30,5),
-('O que é requisição GET?',30,5),
-('O que é SPA?',30,5);
-
--- =========================================================
--- DISCIPLINA 6
--- FUNDAMENTOS DA INFORMÁTICA
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é hardware?',10,6),
-('O que é software?',10,6),
-('Qual componente processa dados?',10,6),
-('O que é memória RAM?',10,6),
-('O que é sistema operacional?',10,6),
-
-('Qual função do HD?',20,6),
-('O que é periférico?',20,6),
-('Qual diferença entre RAM e ROM?',20,6),
-('O que é BIOS?',20,6),
-('O que é placa-mãe?',20,6),
-
-('O que é virtualização?',30,6),
-('O que é SSD?',30,6),
-('O que é overclock?',30,6),
-('O que é kernel?',30,6),
-('O que é computação em nuvem?',30,6);
-
--- =========================================================
--- DISCIPLINA 7
--- TÉCNICAS DE PROGRAMAÇÃO
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é compilação?',10,7),
-('O que é depuração?',10,7),
-('O que é sintaxe?',10,7),
-('O que é pseudocódigo?',10,7),
-('O que é IDE?',10,7),
-
-('O que é modularização?',20,7),
-('O que é função?',20,7),
-('O que é parâmetro?',20,7),
-('O que é retorno?',20,7),
-('O que é escopo?',20,7),
-
-('O que é programação estruturada?',30,7),
-('O que é programação orientada a objetos?',30,7),
-('O que é herança múltipla?',30,7),
-('O que é sobrecarga?',30,7),
-('O que é interface?',30,7);
-
--- =========================================================
--- DISCIPLINA 8
--- DESENVOLVIMENTO DE SISTEMAS
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é sistema?',10,8),
-('O que é software?',10,8),
-('O que é requisito?',10,8),
-('O que é usuário final?',10,8),
-('O que é manutenção?',10,8),
-
-('O que é metodologia ágil?',20,8),
-('O que é Scrum?',20,8),
-('O que é sprint?',20,8),
-('O que é backlog?',20,8),
-('O que é versionamento?',20,8),
-
-('O que é integração contínua?',30,8),
-('O que é deploy?',30,8),
-('O que é microsserviço?',30,8),
-('O que é arquitetura MVC?',30,8),
-('O que é escalabilidade?',30,8);
-
--- =========================================================
--- DISCIPLINA 9
--- BANCO DE DADOS II
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é VIEW?',10,9),
-('O que é PROCEDURE?',10,9),
-('O que é TRIGGER?',10,9),
-('O que é índice?',10,9),
-('O que é backup?',10,9),
-
-('O que é transação?',20,9),
-('O que significa COMMIT?',20,9),
-('O que significa ROLLBACK?',20,9),
-('O que é modelagem lógica?',20,9),
-('O que é modelagem física?',20,9),
-
-('O que é deadlock?',30,9),
-('O que é cardinalidade?',30,9),
-('O que é integridade referencial?',30,9),
-('O que é banco distribuído?',30,9),
-('O que é otimização de consultas?',30,9);
-
--- =========================================================
--- DISCIPLINA 10
--- INTERNET E PROTOCOLOS
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é internet?',10,10),
-('O que significa HTTP?',10,10),
-('Qual protocolo envia emails?',10,10),
-('O que é IP?',10,10),
-('O que é DNS?',10,10),
-
-('O que é TCP?',20,10),
-('O que é UDP?',20,10),
-('Qual porta padrão HTTPS?',20,10),
-('O que é roteador?',20,10),
-('O que é firewall?',20,10),
-
-('O que é NAT?',30,10),
-('O que é VPN?',30,10),
-('O que é IPv6?',30,10),
-('O que é máscara de rede?',30,10),
-('O que é protocolo SSL/TLS?',30,10);
-
--- =========================================================
--- DISCIPLINA 11
--- PAM I
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é aplicativo mobile?',10,11),
-('O que é Android?',10,11),
-('O que é APK?',10,11),
-('O que é Activity?',10,11),
-('O que é interface gráfica?',10,11),
-
-('O que é Intent?',20,11),
-('O que é RecyclerView?',20,11),
-('O que é SQLite?',20,11),
-('O que é API mobile?',20,11),
-('O que é emulador?',20,11),
-
-('O que é ciclo de vida Activity?',30,11),
-('O que é Firebase?',30,11),
-('O que é persistência local?',30,11),
-('O que é arquitetura MVVM?',30,11),
-('O que é responsividade mobile?',30,11);
-
--- =========================================================
--- DISCIPLINA 12
--- PROGRAMAÇÃO WEB II
--- =========================================================
-
-INSERT INTO questao (enunciado, pontuacao, id_disciplina) VALUES
-('O que é PHP?',10,12),
-('O que é backend?',10,12),
-('O que é frontend?',10,12),
-('O que é formulário HTML?',10,12),
-('O que é servidor web?',10,12),
-
-('O que é sessão?',20,12),
-('O que é cookie?',20,12),
-('O que é autenticação?',20,12),
-('O que é CRUD?',20,12),
-('O que é conexão com banco?',20,12),
-
-('O que é API REST?',30,12),
-('O que é token JWT?',30,12),
-('O que é ORM?',30,12),
-('O que é middleware?',30,12),
-('O que é arquitetura cliente-servidor?',30,12);
-
--- =========================================================
--- ALTERNATIVAS
--- =========================================================
-
-
--- DISCIPLINA 1 ==========================
-
-INSERT INTO alternativa(id_questao, perguntas, correta)VALUES 
-(1, 'Um conjunto de instruções ordenadas para resolver um problema.', true),
-(1, 'Um equipamento usado para armazenar dados.', false),
-(1, 'Um programa que acessa a internet.', false),
-(1, 'Um tipo de linguagem de marcação.', false),
-(1, 'Um componente físico do computador.', false),
-
-(2, 'Estrutura de repetição.', true),
-(2, 'Estrutura condicional.', false),
-(2, 'Declaração de variável.', false),
-(2, 'Operador lógico.', false),
-(2, 'Tipo de dado.', false),
-
-(3, 'Um espaço na memória que armazena valores.', true),
-(3, 'Um laço de repetição.', false),
-(3, 'Um operador matemático.', false),
-(3, 'Um comando de saída.', false),
-(3, 'Uma estrutura condicional.', false),
-
-(4, '=', true),
-(4, '==', false),
-(4, '!=', false),
-(4, '&&', false),
-(4, '||', false),
-
-(5, 'Escreva.', true),
-(5, 'Leia.', false),
-(5, 'Enquanto.', false),
-(5, 'Se.', false),
-(5, 'Para.', false),
-
-(6, 'Estrutura condicional.', true),
-(6, 'Estrutura de repetição.', false),
-(6, 'Declaração de variável.', false),
-(6, 'Comentário.', false),
-(6, 'Operador aritmético.', false),
-
-(7, 'Uma estrutura que armazena vários valores do mesmo tipo.', true),
-(7, 'Um comando de decisão.', false),
-(7, 'Um operador lógico.', false),
-(7, 'Um tipo de laço.', false),
-(7, 'Uma função matemática.', false),
-
-(8, '||', true),
-(8, '&&', false),
-(8, '==', false),
-(8, '!=', false),
-(8, '=', false),
-
-(9, 'Faça...enquanto.', true),
-(9, 'Enquanto.', false),
-(9, 'Para.', false),
-(9, 'Se.', false),
-(9, 'Escolha.', false),
-
-(10, 'Interromper a execução do laço.', true),
-(10, 'Repetir o laço.', false),
-(10, 'Declarar variável.', false),
-(10, 'Comparar valores.', false),
-(10, 'Exibir texto.', false),
-
-(11, 'Quando uma função chama a si mesma.', true),
-(11, 'Quando um laço repete infinitamente.', false),
-(11, 'Quando duas variáveis recebem o mesmo valor.', false),
-(11, 'Quando um programa gera erro.', false),
-(11, 'Quando um vetor é percorrido.', false),
-
-(12, 'Fila.', true),
-(12, 'Pilha.', false),
-(12, 'Vetor.', false),
-(12, 'Matriz.', false),
-(12, 'Lista encadeada.', false),
-
-(13, 'O(n²)', true),
-(13, 'O(log n)', false),
-(13, 'O(n)', false),
-(13, 'O(1)', false),
-(13, 'O(n log n)', false),
-
-(14, 'Ocultar detalhes internos e mostrar apenas o essencial.', true),
-(14, 'Repetir blocos de código.', false),
-(14, 'Ordenar dados em memória.', false),
-(14, 'Armazenar valores em vetor.', false),
-(14, 'Criar variáveis globais.', false),
-
-(15, 'Busca binária.', true),
-(15, 'Busca sequencial.', false),
-(15, 'Bubble Sort.', false),
-(15, 'Busca linear.', false),
-(15, 'Insertion Sort.', false),
-
--- DISCIPLINA 2 =====================================
-
-(16, 'Um conjunto organizado de dados armazenados.', true),
-(16, 'Um programa de edição de texto.', false),
-(16, 'Um sistema operacional.', false),
-(16, 'Um componente físico.', false),
-(16, 'Uma linguagem de programação.', false),
-
-(17, 'SELECT', true),
-(17, 'INSERT', false),
-(17, 'UPDATE', false),
-(17, 'DELETE', false),
-(17, 'CREATE', false),
-
-(18, 'INSERT', true),
-(18, 'SELECT', false),
-(18, 'UPDATE', false),
-(18, 'DROP', false),
-(18, 'ALTER', false),
-
-(19, 'Um campo que identifica cada registro de forma única.', true),
-(19, 'Um campo usado para repetir dados.', false),
-(19, 'Uma tabela auxiliar.', false),
-(19, 'Um tipo de consulta.', false),
-(19, 'Um comando SQL.', false),
-
-(20, 'CREATE TABLE', true),
-(20, 'INSERT INTO', false),
-(20, 'SELECT *', false),
-(20, 'ALTER TABLE', false),
-(20, 'DROP TABLE', false),
-
-(21, 'UPDATE', true),
-(21, 'INSERT', false),
-(21, 'DELETE', false),
-(21, 'SELECT', false),
-(21, 'CREATE', false),
-
-(22, 'Structured Query Language', true),
-(22, 'System Query Language', false),
-(22, 'Simple Question Language', false),
-(22, 'Storage Query Logic', false),
-(22, 'Server Query Language', false),
-
-(23, 'WHERE', true),
-(23, 'ORDER BY', false),
-(23, 'GROUP BY', false),
-(23, 'HAVING', false),
-(23, 'FROM', false),
-
-(24, 'DELETE', true),
-(24, 'DROP', false),
-(24, 'REMOVE', false),
-(24, 'UPDATE', false),
-(24, 'TRUNCATE', false),
-
-(25, 'Um campo que relaciona uma tabela com outra.', true),
-(25, 'O identificador principal da tabela.', false),
-(25, 'Um campo obrigatório.', false),
-(25, 'Uma consulta SQL.', false),
-(25, 'Um índice de busca.', false),
-
-(26, 'Processo de organizar dados para reduzir redundância.', true),
-(26, 'Processo de apagar registros duplicados.', false),
-(26, 'Forma de ordenar resultados.', false),
-(26, 'Tipo de backup.', false),
-(26, 'Estrutura de consulta.', false),
-
-(27, 'INNER JOIN', true),
-(27, 'LEFT JOIN', false),
-(27, 'RIGHT JOIN', false),
-(27, 'FULL JOIN', false),
-(27, 'CROSS JOIN', false),
-
-(28, 'LEFT JOIN', true),
-(28, 'INNER JOIN', false),
-(28, 'RIGHT JOIN', false),
-(28, 'FULL JOIN', false),
-(28, 'CROSS JOIN', false),
-
-(29, 'COUNT()', true),
-(29, 'SUM()', false),
-(29, 'AVG()', false),
-(29, 'MAX()', false),
-(29, 'MIN()', false),
-
-(30, 'Estrutura que acelera a busca de dados.', true),
-(30, 'Uma tabela temporária.', false),
-(30, 'Um tipo de chave estrangeira.', false),
-(30, 'Um comando de atualização.', false),
-(30, 'Um campo obrigatório.', false),
-
--- DISCIPLINA 3 =======================================
-
-(31, 'Um requisito que descreve o que o sistema deve fazer.', true),
-(31, 'Um requisito ligado apenas ao visual.', false),
-(31, 'Um tipo de banco de dados.', false),
-(31, 'Um erro de programação.', false),
-(31, 'Um componente de hardware.', false),
-
-(32, 'Linguagem de modelagem unificada.', true),
-(32, 'Linguagem de programação web.', false),
-(32, 'Um banco de dados relacional.', false),
-(32, 'Um sistema operacional.', false),
-(32, 'Um framework de desenvolvimento.', false),
-
-(33, 'Diagrama de casos de uso.', true),
-(33, 'Diagrama de classes.', false),
-(33, 'Diagrama de sequência.', false),
-(33, 'Diagrama de atividades.', false),
-(33, 'Diagrama de estados.', false),
-
-(34, 'Uma entidade externa que interage com o sistema.', true),
-(34, 'Uma tabela do banco de dados.', false),
-(34, 'Um requisito funcional.', false),
-(34, 'Um processo interno.', false),
-(34, 'Um tipo de diagrama.', false),
-
-(35, 'Entender o problema e definir necessidades do sistema.', true),
-(35, 'Criar a interface gráfica.', false),
-(35, 'Escrever o código final.', false),
-(35, 'Instalar o sistema.', false),
-(35, 'Testar o hardware.', false),
-
-(36, 'Descrição de uma interação entre usuário e sistema.', true),
-(36, 'Um tipo de linguagem de programação.', false),
-(36, 'Um modelo de banco de dados.', false),
-(36, 'Um comando SQL.', false),
-(36, 'Um componente físico.', false),
-
-(37, 'Diagrama de classes.', true),
-(37, 'Diagrama de casos de uso.', false),
-(37, 'Diagrama de sequência.', false),
-(37, 'Diagrama de estados.', false),
-(37, 'Diagrama de atividades.', false),
-
-(38, 'Processo de identificar necessidades dos usuários.', true),
-(38, 'Processo de apagar requisitos antigos.', false),
-(38, 'Processo de compilar código.', false),
-(38, 'Processo de testar software.', false),
-(38, 'Processo de instalar sistema.', false),
-
-(39, 'Criação de uma representação inicial do sistema.', true),
-(39, 'Criação do banco de dados final.', false),
-(39, 'Correção de erros do programa.', false),
-(39, 'Execução do sistema.', false),
-(39, 'Documentação do hardware.', false),
-
-(40, 'Definir como o sistema será construído.', true),
-(40, 'Executar o sistema em produção.', false),
-(40, 'Cadastrar usuários.', false),
-(40, 'Corrigir bugs de código.', false),
-(40, 'Apagar requisitos antigos.', false),
-
-(41, 'Ocultar detalhes internos e controlar acesso aos dados.', true),
-(41, 'Permitir múltiplas heranças.', false),
-(41, 'Repetir blocos de código.', false),
-(41, 'Criar variáveis globais.', false),
-(41, 'Dividir tabelas em colunas.', false),
-
-(42, 'Quando uma classe herda características de outra.', true),
-(42, 'Quando uma função chama a si mesma.', false),
-(42, 'Quando duas classes têm o mesmo nome.', false),
-(42, 'Quando um objeto é apagado.', false),
-(42, 'Quando um método retorna valor.', false),
-
-(43, 'Capacidade de um mesmo método ter comportamentos diferentes.', true),
-(43, 'Capacidade de armazenar vários valores.', false),
-(43, 'Capacidade de repetir instruções.', false),
-(43, 'Capacidade de ordenar dados.', false),
-(43, 'Capacidade de criar tabelas.', false),
-
-(44, 'Grau de dependência entre módulos.', true),
-(44, 'Quantidade de linhas de código.', false),
-(44, 'Número de classes do sistema.', false),
-(44, 'Velocidade de execução.', false),
-(44, 'Quantidade de variáveis.', false),
-
-(45, 'Grau em que os elementos de um módulo estão relacionados.', true),
-(45, 'Quantidade de tabelas no banco.', false),
-(45, 'Número de usuários do sistema.', false),
-(45, 'Tempo de resposta do sistema.', false),
-(45, 'Quantidade de loops do programa.', false),
-
--- DISCIPLINA 4 ======================================
-
-(46, 'Sistema de cores formado por vermelho, verde e azul.', true),
-(46, 'Formato de arquivo de imagem.', false),
-(46, 'Técnica de edição de vídeo.', false),
-(46, 'Tipo de fonte digital.', false),
-(46, 'Ferramenta de alinhamento.', false),
-
-(47, 'Quantidade de pixels que compõem uma imagem.', true),
-(47, 'Tamanho físico do monitor.', false),
-(47, 'Número de páginas de um documento.', false),
-(47, 'Velocidade de carregamento da imagem.', false),
-(47, 'Tipo de cor utilizada.', false),
-
-(48, 'Adobe Photoshop', true),
-(48, 'MySQL', false),
-(48, 'Visual Studio Code', false),
-(48, 'Node.js', false),
-(48, 'Google Chrome', false),
-
-(49, 'Estudo e uso das fontes e da composição de textos.', true),
-(49, 'Organização de tabelas em banco de dados.', false),
-(49, 'Técnica de programação orientada a objetos.', false),
-(49, 'Processo de compactação de imagens.', false),
-(49, 'Modelo de rede de computadores.', false),
-
-(50, 'Organização visual dos elementos em uma composição.', true),
-(50, 'Tipo de linguagem de programação.', false),
-(50, 'Formato de exportação de arquivos.', false),
-(50, 'Sistema de cores digitais.', false),
-(50, 'Técnica de compressão de dados.', false),
-
-(51, 'Diferença visual entre elementos para destacar informações.', true),
-(51, 'Espaçamento entre linhas de texto.', false),
-(51, 'Quantidade de cores usadas no projeto.', false),
-(51, 'Tamanho do arquivo final.', false),
-(51, 'Tipo de resolução da tela.', false),
-
-(52, 'Posicionamento organizado dos elementos em relação entre si.', true),
-(52, 'Aumento da nitidez da imagem.', false),
-(52, 'Definição do tamanho da fonte.', false),
-(52, 'Aplicação de efeitos de sombra.', false),
-(52, 'Escolha do formato do arquivo.', false),
-
-(53, 'PNG', true),
-(53, 'JPG', false),
-(53, 'BMP', false),
-(53, 'TXT', false),
-(53, 'MP3', false),
-
-(54, 'Experiência do usuário ao utilizar um produto.', true),
-(54, 'Linguagem de marcação para páginas.', false),
-(54, 'Programa de edição gráfica.', false),
-(54, 'Sistema de armazenamento de dados.', false),
-(54, 'Modelo de banco relacional.', false),
-
-(55, 'Interface visual com a qual o usuário interage.', true),
-(55, 'Banco de dados do sistema.', false),
-(55, 'Código-fonte do servidor.', false),
-(55, 'Estrutura lógica do programa.', false),
-(55, 'Protocolo de internet.', false),
-
-(56, 'Conjunto de elementos visuais que representam uma marca.', true),
-(56, 'Técnica para aumentar resolução.', false),
-(56, 'Modelo de diagrama de classes.', false),
-(56, 'Processo de compilação.', false),
-(56, 'Tipo de banco de dados.', false),
-
-(57, 'Esboço simples da estrutura de uma interface.', true),
-(57, 'Imagem final pronta para publicação.', false),
-(57, 'Modelo de programação.', false),
-(57, 'Técnica de compressão de arquivos.', false),
-(57, 'Sistema de tipografia automática.', false),
-
-(58, 'Representação visual detalhada de um layout.', true),
-(58, 'Esboço inicial sem detalhes.', false),
-(58, 'Linguagem de estilização.', false),
-(58, 'Estrutura de dados.', false),
-(58, 'Tipo de algoritmo.', false),
-
-(59, 'Design que se adapta a diferentes tamanhos de tela.', true),
-(59, 'Design feito apenas para celulares.', false),
-(59, 'Design com animações automáticas.', false),
-(59, 'Design com alta resolução.', false),
-(59, 'Design criado apenas em HTML.', false),
-
-(60, 'Organização visual que orienta a atenção do usuário.', true),
-(60, 'Escolha do tipo de arquivo.', false),
-(60, 'Quantidade de páginas do projeto.', false),
-(60, 'Tamanho físico do monitor.', false),
-(60, 'Tipo de linguagem utilizada.', false),
-
--- DISCIPLINA 5 ==============================
-
-(61, 'HyperText Markup Language', true),
-(61, 'HighText Machine Language', false),
-(61, 'Hyper Transfer Markup Language', false),
-(61, 'Home Tool Markup Language', false),
-(61, 'HyperText Markdown Language', false),
-
-(62, '<p>', true),
-(62, '<h1>', false),
-(62, '<div>', false),
-(62, '<span>', false),
-(62, '<br>', false),
-
-(63, '<a>', true),
-(63, '<link>', false),
-(63, '<href>', false),
-(63, '<url>', false),
-(63, '<nav>', false),
-
-(64, 'CSS', true),
-(64, 'HTML', false),
-(64, 'Java', false),
-(64, 'SQL', false),
-(64, 'PHP', false),
-
-(65, 'JavaScript', true),
-(65, 'CSS', false),
-(65, 'HTML', false),
-(65, 'SQL', false),
-(65, 'XML', false),
-
-(66, 'Linguagem usada para estilizar páginas web.', true),
-(66, 'Linguagem usada para criar banco de dados.', false),
-(66, 'Linguagem usada apenas no servidor.', false),
-(66, 'Protocolo de internet.', false),
-(66, 'Sistema operacional para web.', false),
-
-(67, 'Linguagem de programação usada para interatividade na web.', true),
-(67, 'Linguagem de marcação para estruturar páginas.', false),
-(67, 'Banco de dados relacional.', false),
-(67, 'Protocolo de transferência de arquivos.', false),
-(67, 'Editor de código.', false),
-
-(68, '<table>', true),
-(68, '<tr>', false),
-(68, '<td>', false),
-(68, '<thead>', false),
-(68, '<tbody>', false),
-
-(69, 'Capacidade de adaptar a interface a diferentes telas.', true),
-(69, 'Capacidade de aumentar a velocidade do site.', false),
-(69, 'Capacidade de armazenar dados localmente.', false),
-(69, 'Capacidade de executar scripts no servidor.', false),
-(69, 'Capacidade de criptografar páginas.', false),
-
-(70, 'Organizar e alinhar elementos em layouts flexíveis.', true),
-(70, 'Criar conexões com banco de dados.', false),
-(70, 'Executar código JavaScript.', false),
-(70, 'Definir rotas do sistema.', false),
-(70, 'Gerar arquivos HTML automaticamente.', false),
-
-(71, 'Estrutura que representa os elementos de uma página.', true),
-(71, 'Banco de dados usado em navegadores.', false),
-(71, 'Linguagem de programação orientada a objetos.', false),
-(71, 'Protocolo para envio de páginas.', false),
-(71, 'Sistema de autenticação web.', false),
-
-(72, 'Interface que permite comunicação entre sistemas.', true),
-(72, 'Editor visual de páginas.', false),
-(72, 'Banco de dados em nuvem.', false),
-(72, 'Estrutura de layout em CSS.', false),
-(72, 'Comando HTML para links.', false),
-
-(73, 'Formato de dados baseado em pares chave e valor.', true),
-(73, 'Linguagem de estilização de páginas.', false),
-(73, 'Banco de dados relacional.', false),
-(73, 'Tipo de servidor web.', false),
-(73, 'Protocolo de rede.', false),
-
-(74, 'Requisição usada para obter dados de um servidor.', true),
-(74, 'Requisição usada para apagar dados.', false),
-(74, 'Requisição usada para atualizar dados.', false),
-(74, 'Requisição usada para criar tabelas.', false),
-(74, 'Requisição usada para compilar código.', false),
-
-(75, 'Aplicação web que funciona como uma única página dinâmica.', true),
-(75, 'Sistema de banco de dados distribuído.', false),
-(75, 'Programa de edição de imagens.', false),
-(75, 'Servidor dedicado para APIs.', false),
-(75, 'Biblioteca de estilos CSS.', false),
-
--- DISCIPLINA 6 ==========================================
-
-(76, 'Parte física do computador e seus componentes.', true),
-(76, 'Conjunto de programas instalados.', false),
-(76, 'Sistema operacional do computador.', false),
-(76, 'Programa usado para navegar na internet.', false),
-(76, 'Banco de dados do sistema.', false),
-
-(77, 'Conjunto de programas e instruções executados pelo computador.', true),
-(77, 'Parte física do computador.', false),
-(77, 'Dispositivo de armazenamento externo.', false),
-(77, 'Placa responsável pelo vídeo.', false),
-(77, 'Rede local de computadores.', false),
-
-(78, 'Processador (CPU).', true),
-(78, 'Monitor.', false),
-(78, 'Teclado.', false),
-(78, 'Mouse.', false),
-(78, 'Gabinete.', false),
-
-(79, 'Memória temporária usada durante a execução dos programas.', true),
-(79, 'Memória permanente do sistema.', false),
-(79, 'Disco rígido externo.', false),
-(79, 'Processador gráfico.', false),
-(79, 'Tipo de sistema operacional.', false),
-
-(80, 'Software que gerencia hardware e programas do computador.', true),
-(80, 'Programa usado apenas para editar textos.', false),
-(80, 'Componente físico da placa-mãe.', false),
-(80, 'Dispositivo de armazenamento.', false),
-(80, 'Linguagem de programação.', false),
-
-(81, 'Armazenar dados de forma permanente.', true),
-(81, 'Executar cálculos lógicos.', false),
-(81, 'Exibir imagens na tela.', false),
-(81, 'Controlar a memória RAM.', false),
-(81, 'Conectar o computador à internet.', false),
-
-(82, 'Dispositivo de entrada ou saída conectado ao computador.', true),
-(82, 'Programa de gerenciamento de arquivos.', false),
-(82, 'Parte central do processador.', false),
-(82, 'Tipo de memória interna.', false),
-(82, 'Sistema operacional.', false),
-
-(83, 'RAM é volátil e ROM é permanente.', true),
-(83, 'RAM é permanente e ROM é volátil.', false),
-(83, 'RAM e ROM são iguais.', false),
-(83, 'RAM é usada apenas para vídeo.', false),
-(83, 'ROM é usada apenas para internet.', false),
-
-(84, 'Software básico que inicializa o hardware do computador.', true),
-(84, 'Programa de edição de imagens.', false),
-(84, 'Sistema de arquivos do HD.', false),
-(84, 'Memória temporária.', false),
-(84, 'Componente responsável pelo som.', false),
-
-(85, 'Placa principal que conecta os componentes do computador.', true),
-(85, 'Dispositivo de armazenamento externo.', false),
-(85, 'Programa de inicialização.', false),
-(85, 'Memória de acesso rápido.', false),
-(85, 'Tipo de processador.', false),
-
-(86, 'Execução de máquinas virtuais em um mesmo hardware.', true),
-(86, 'Aumento da velocidade do processador.', false),
-(86, 'Criação de backups automáticos.', false),
-(86, 'Processo de formatação do HD.', false),
-(86, 'Uso simultâneo de vários monitores.', false),
-
-(87, 'Unidade de armazenamento mais rápida que HD tradicional.', true),
-(87, 'Tipo de memória RAM.', false),
-(87, 'Processador gráfico.', false),
-(87, 'Sistema operacional portátil.', false),
-(87, 'Protocolo de rede.', false),
-
-(88, 'Aumento da frequência de operação de um componente.', true),
-(88, 'Redução do consumo de energia.', false),
-(88, 'Criação de uma máquina virtual.', false),
-(88, 'Compactação de arquivos.', false),
-(88, 'Troca do sistema operacional.', false),
-
-(89, 'Parte central do sistema operacional que gerencia recursos.', true),
-(89, 'Programa para edição de texto.', false),
-(89, 'Memória principal do computador.', false),
-(89, 'Componente responsável pelo vídeo.', false),
-(89, 'Sistema de arquivos em nuvem.', false),
-
-(90, 'Uso de recursos computacionais pela internet.', true),
-(90, 'Conexão física entre computadores.', false),
-(90, 'Armazenamento apenas em HD externo.', false),
-(90, 'Execução local de programas sem rede.', false),
-(90, 'Instalação manual de drivers.', false),
-
--- DISCIPLINA 7 ===================================================
-
-(91, 'Processo de transformar código-fonte em código executável.', true),
-(91, 'Processo de encontrar erros no código.', false),
-(91, 'Processo de executar o programa passo a passo.', false),
-(91, 'Processo de armazenar dados em banco.', false),
-(91, 'Processo de documentar o sistema.', false),
-
-(92, 'Processo de localizar e corrigir erros em um programa.', true),
-(92, 'Processo de compilar código-fonte.', false),
-(92, 'Processo de criar banco de dados.', false),
-(92, 'Processo de gerar interface gráfica.', false),
-(92, 'Processo de instalar o sistema.', false),
-
-(93, 'Conjunto de regras para escrever comandos corretamente.', true),
-(93, 'Conjunto de testes automáticos.', false),
-(93, 'Conjunto de arquivos do sistema.', false),
-(93, 'Conjunto de componentes físicos.', false),
-(93, 'Conjunto de tabelas do banco.', false),
-
-(94, 'Descrição lógica de um algoritmo em linguagem informal.', true),
-(94, 'Código executável pronto para uso.', false),
-(94, 'Linguagem de programação compilada.', false),
-(94, 'Banco de dados relacional.', false),
-(94, 'Modelo de interface gráfica.', false),
-
-(95, 'Ambiente de desenvolvimento integrado.', true),
-(95, 'Sistema operacional para programação.', false),
-(95, 'Banco de dados local.', false),
-(95, 'Tipo de linguagem de programação.', false),
-(95, 'Ferramenta de compactação.', false),
-
-(96, 'Dividir o programa em partes menores e organizadas.', true),
-(96, 'Executar vários programas ao mesmo tempo.', false),
-(96, 'Criar várias variáveis globais.', false),
-(96, 'Transformar código em executável.', false),
-(96, 'Ordenar dados automaticamente.', false),
-
-(97, 'Bloco de código que executa uma tarefa específica.', true),
-(97, 'Variável usada para armazenar dados.', false),
-(97, 'Comando de repetição.', false),
-(97, 'Estrutura condicional.', false),
-(97, 'Tipo de dado numérico.', false),
-
-(98, 'Valor recebido por uma função para ser utilizado.', true),
-(98, 'Valor devolvido ao final da função.', false),
-(98, 'Nome da função.', false),
-(98, 'Comando de saída.', false),
-(98, 'Estrutura de repetição.', false),
-
-(99, 'Valor que a função devolve após executar.', true),
-(99, 'Valor usado apenas na entrada da função.', false),
-(99, 'Nome dado à função.', false),
-(99, 'Tipo de variável global.', false),
-(99, 'Conjunto de parâmetros.', false),
-
-(100, 'Região do código onde uma variável pode ser acessada.', true),
-(100, 'Velocidade de execução do programa.', false),
-(100, 'Tipo de retorno da função.', false),
-(100, 'Quantidade de memória usada.', false),
-(100, 'Número de linhas de código.', false),
-
-(101, 'Forma de programar usando sequência, decisão e repetição.', true),
-(101, 'Forma de programar baseada em objetos apenas.', false),
-(101, 'Forma de programar sem lógica definida.', false),
-(101, 'Forma de programar apenas para web.', false),
-(101, 'Forma de programar sem funções.', false),
-
-(102, 'Paradigma baseado em objetos com atributos e métodos.', true),
-(102, 'Paradigma baseado apenas em tabelas.', false),
-(102, 'Paradigma usado apenas para banco de dados.', false),
-(102, 'Paradigma sem reutilização de código.', false),
-(102, 'Paradigma exclusivo de sistemas operacionais.', false),
-
-(103, 'Quando uma classe herda de mais de uma classe.', true),
-(103, 'Quando uma função chama outra função.', false),
-(103, 'Quando duas variáveis têm o mesmo valor.', false),
-(103, 'Quando um objeto é destruído.', false),
-(103, 'Quando uma classe possui vários métodos.', false),
-
-(104, 'Uso do mesmo nome para métodos com comportamentos diferentes.', true),
-(104, 'Uso de várias classes em um sistema.', false),
-(104, 'Uso de variáveis globais no código.', false),
-(104, 'Uso de herança múltipla.', false),
-(104, 'Uso de repetição automática.', false),
-
-(105, 'Contrato que define métodos que devem ser implementados.', true),
-(105, 'Classe que já possui código completo.', false),
-(105, 'Banco de dados usado em APIs.', false),
-(105, 'Tipo de variável global.', false),
-(105, 'Estrutura usada para repetição.', false),
-
--- DISCIPLINA 8 ==============================================
-
-(106, 'Conjunto de elementos que trabalham juntos para um objetivo.', true),
-(106, 'Programa usado apenas para editar textos.', false),
-(106, 'Parte física do computador.', false),
-(106, 'Banco de dados relacional.', false),
-(106, 'Linguagem de programação.', false),
-
-(107, 'Conjunto de programas e instruções executados pelo computador.', true),
-(107, 'Parte física do computador.', false),
-(107, 'Dispositivo de entrada.', false),
-(107, 'Sistema de rede.', false),
-(107, 'Placa principal do computador.', false),
-
-(108, 'Necessidade ou condição que o sistema deve atender.', true),
-(108, 'Erro encontrado no sistema.', false),
-(108, 'Comando de programação.', false),
-(108, 'Componente físico.', false),
-(108, 'Tipo de banco de dados.', false),
-
-(109, 'Pessoa que utiliza o sistema no dia a dia.', true),
-(109, 'Pessoa que programa o sistema.', false),
-(109, 'Administrador do banco de dados.', false),
-(109, 'Responsável pela rede.', false),
-(109, 'Fabricante do hardware.', false),
-
-(110, 'Processo de correção, atualização ou melhoria do sistema.', true),
-(110, 'Criação inicial do software.', false),
-(110, 'Instalação do sistema operacional.', false),
-(110, 'Formatação do computador.', false),
-(110, 'Criação de usuários.', false),
-
-(111, 'Método de desenvolvimento iterativo e adaptável.', true),
-(111, 'Método de desenvolvimento feito em uma única etapa.', false),
-(111, 'Método exclusivo para banco de dados.', false),
-(111, 'Método de instalação de software.', false),
-(111, 'Método de programação orientada a objetos.', false),
-
-(112, 'Framework ágil baseado em papéis, eventos e artefatos.', true),
-(112, 'Linguagem de programação para web.', false),
-(112, 'Banco de dados em nuvem.', false),
-(112, 'Sistema operacional para servidores.', false),
-(112, 'Modelo de rede local.', false),
-
-(113, 'Período curto de trabalho para desenvolver parte do projeto.', true),
-(113, 'Documento de requisitos do sistema.', false),
-(113, 'Ferramenta de versionamento.', false),
-(113, 'Tipo de banco de dados.', false),
-(113, 'Processo de compilação.', false),
-
-(114, 'Lista priorizada de tarefas ou requisitos do projeto.', true),
-(114, 'Relatório final do sistema.', false),
-(114, 'Código-fonte principal do projeto.', false),
-(114, 'Banco de dados temporário.', false),
-(114, 'Diagrama de classes.', false),
-
-(115, 'Controle de alterações feitas no código ao longo do tempo.', true),
-(115, 'Processo de executar o sistema.', false),
-(115, 'Criação automática de interfaces.', false),
-(115, 'Armazenamento em nuvem.', false),
-(115, 'Estrutura de banco de dados.', false),
-
-(116, 'Prática de integrar código frequentemente com testes automáticos.', true),
-(116, 'Processo de apagar versões antigas.', false),
-(116, 'Criação manual de backups.', false),
-(116, 'Modelo de programação orientada a objetos.', false),
-(116, 'Técnica de design responsivo.', false),
-
-(117, 'Publicação de uma aplicação em ambiente de uso.', true),
-(117, 'Execução de testes unitários.', false),
-(117, 'Criação de banco de dados.', false),
-(117, 'Compilação do código-fonte.', false),
-(117, 'Documentação do sistema.', false),
-
-(118, 'Arquitetura em que o sistema é dividido em serviços independentes.', true),
-(118, 'Arquitetura baseada em uma única classe.', false),
-(118, 'Arquitetura usada apenas em banco de dados.', false),
-(118, 'Arquitetura exclusiva para aplicativos mobile.', false),
-(118, 'Arquitetura de hardware.', false),
-
-(119, 'Padrão que separa modelo, visualização e controle.', true),
-(119, 'Padrão que une banco e interface no mesmo módulo.', false),
-(119, 'Padrão usado apenas para redes.', false),
-(119, 'Padrão exclusivo de aplicativos Android.', false),
-(119, 'Padrão de compressão de arquivos.', false),
-
-(120, 'Capacidade do sistema de crescer sem perder desempenho.', true),
-(120, 'Capacidade do sistema de funcionar offline.', false),
-(120, 'Capacidade de armazenar arquivos grandes.', false),
-(120, 'Capacidade de usar várias linguagens.', false),
-(120, 'Capacidade de gerar relatórios.', false),
-
--- DISCIPLINA 9 =============================
-
-(121, 'Tabela virtual baseada em uma consulta.', true),
-(121, 'Tabela física criada manualmente.', false),
-(121, 'Comando para apagar registros.', false),
-(121, 'Tipo de índice.', false),
-(121, 'Banco de dados temporário.', false),
-
-(122, 'Conjunto de comandos SQL armazenados para execução.', true),
-(122, 'Consulta usada apenas para leitura.', false),
-(122, 'Tabela com chave primária.', false),
-(122, 'Índice de pesquisa.', false),
-(122, 'Comando para excluir tabelas.', false),
-
-(123, 'Bloco de código executado automaticamente por um evento.', true),
-(123, 'Comando usado para criar tabelas.', false),
-(123, 'Consulta de leitura de dados.', false),
-(123, 'Tipo de chave estrangeira.', false),
-(123, 'Procedimento de backup.', false),
-
-(124, 'Estrutura que acelera consultas de dados.', true),
-(124, 'Tabela usada para armazenar logs.', false),
-(124, 'Comando para alterar registros.', false),
-(124, 'Relacionamento entre tabelas.', false),
-(124, 'Tipo de transação.', false),
-
-(125, 'Cópia de segurança dos dados.', true),
-(125, 'Processo de exclusão de registros.', false),
-(125, 'Tabela auxiliar de sistema.', false),
-(125, 'Consulta de leitura.', false),
-(125, 'Procedimento de ordenação.', false),
-
-(126, 'Conjunto de operações tratadas como uma unidade.', true),
-(126, 'Comando para apagar tabela.', false),
-(126, 'Tipo de chave primária.', false),
-(126, 'Consulta que usa JOIN.', false),
-(126, 'Índice usado em ordenação.', false),
-
-(127, 'Confirma definitivamente as alterações da transação.', true),
-(127, 'Cancela a transação atual.', false),
-(127, 'Inicia uma nova transação.', false),
-(127, 'Cria uma tabela temporária.', false),
-(127, 'Executa backup automático.', false),
-
-(128, 'Desfaz alterações ainda não confirmadas.', true),
-(128, 'Salva permanentemente alterações.', false),
-(128, 'Cria um índice na tabela.', false),
-(128, 'Ordena registros da consulta.', false),
-(128, 'Apaga uma tabela inteira.', false),
-
-(129, 'Representação da estrutura do banco em tabelas e relacionamentos.', true),
-(129, 'Representação física dos arquivos em disco.', false),
-(129, 'Consulta de leitura de dados.', false),
-(129, 'Processo de backup automático.', false),
-(129, 'Comando para inserir registros.', false),
-
-(130, 'Implementação real do banco considerando o SGBD.', true),
-(130, 'Esboço inicial sem tabelas.', false),
-(130, 'Modelo conceitual com entidades apenas.', false),
-(130, 'Consulta SQL com filtros.', false),
-(130, 'Estrutura usada apenas em memória.', false),
-
-(131, 'Situação em que transações ficam bloqueadas entre si.', true),
-(131, 'Processo de salvar dados permanentemente.', false),
-(131, 'Erro de sintaxe em SQL.', false),
-(131, 'Tipo de índice duplicado.', false),
-(131, 'Falha de conexão com o banco.', false),
-
-(132, 'Quantidade de ocorrências entre entidades em um relacionamento.', true),
-(132, 'Quantidade de colunas em uma tabela.', false),
-(132, 'Quantidade de índices de uma tabela.', false),
-(132, 'Número de backups armazenados.', false),
-(132, 'Número de transações simultâneas.', false),
-
-(133, 'Garantia de consistência entre chaves primárias e estrangeiras.', true),
-(133, 'Garantia de que não haverá índices duplicados.', false),
-(133, 'Garantia de ordenação automática dos dados.', false),
-(133, 'Garantia de acesso remoto ao banco.', false),
-(133, 'Garantia de backup em nuvem.', false),
-
-(134, 'Banco de dados armazenado em mais de um local.', true),
-(134, 'Banco de dados com várias tabelas.', false),
-(134, 'Banco de dados sem chave primária.', false),
-(134, 'Banco de dados em memória apenas.', false),
-(134, 'Banco de dados usado só em aplicativos móveis.', false),
-
-(135, 'Melhoria de consultas para maior desempenho.', true),
-(135, 'Processo de apagar registros antigos.', false),
-(135, 'Criação de novas tabelas automaticamente.', false),
-(135, 'Compactação física do banco.', false),
-(135, 'Criação de backups incrementais.', false),
-
-
--- DISCIPLINA 10 =============================
-
-(136, 'Rede mundial de computadores interligados.', true),
-(136, 'Programa usado para navegar em sites.', false),
-(136, 'Dispositivo que conecta redes.', false),
-(136, 'Sistema operacional para servidores.', false),
-(136, 'Banco de dados distribuído.', false),
-
-(137, 'HyperText Transfer Protocol', true),
-(137, 'High Transfer Text Protocol', false),
-(137, 'Hyper Terminal Transfer Process', false),
-(137, 'Host Text Transmission Protocol', false),
-(137, 'Hyper Transfer Tool Process', false),
-
-(138, 'SMTP', true),
-(138, 'HTTP', false),
-(138, 'FTP', false),
-(138, 'DNS', false),
-(138, 'TCP', false),
-
-(139, 'Endereço que identifica um dispositivo na rede.', true),
-(139, 'Programa que gerencia páginas web.', false),
-(139, 'Sistema de envio de emails.', false),
-(139, 'Comando para testar conexão.', false),
-(139, 'Dispositivo de armazenamento.', false),
-
-(140, 'Sistema que traduz nomes de domínio em endereços IP.', true),
-(140, 'Protocolo usado para enviar emails.', false),
-(140, 'Tipo de endereço físico do computador.', false),
-(140, 'Programa de proteção contra vírus.', false),
-(140, 'Dispositivo que distribui internet.', false),
-
-(141, 'Protocolo confiável orientado à conexão.', true),
-(141, 'Protocolo rápido sem garantia de entrega.', false),
-(141, 'Protocolo de envio de emails.', false),
-(141, 'Sistema de nomes de domínio.', false),
-(141, 'Endereço lógico de rede.', false),
-
-(142, 'Protocolo rápido sem garantia de entrega.', true),
-(142, 'Protocolo confiável orientado à conexão.', false),
-(142, 'Protocolo usado em páginas web.', false),
-(142, 'Sistema de resolução de nomes.', false),
-(142, 'Tipo de endereço IP.', false),
-
-(143, '443', true),
-(143, '80', false),
-(143, '21', false),
-(143, '25', false),
-(143, '110', false),
-
-(144, 'Dispositivo que encaminha pacotes entre redes.', true),
-(144, 'Programa que protege contra vírus.', false),
-(144, 'Sistema operacional de rede.', false),
-(144, 'Cabo usado para internet.', false),
-(144, 'Servidor de emails.', false),
-
-(145, 'Sistema que controla e filtra o tráfego de rede.', true),
-(145, 'Dispositivo que converte nomes em IP.', false),
-(145, 'Programa usado para enviar emails.', false),
-(145, 'Tipo de protocolo de transporte.', false),
-(145, 'Ferramenta de compactação.', false),
-
-(146, 'Técnica que converte endereços privados em públicos.', true),
-(146, 'Protocolo de envio seguro de dados.', false),
-(146, 'Sistema de resolução de nomes.', false),
-(146, 'Tipo de roteamento interno.', false),
-(146, 'Ferramenta de monitoramento de rede.', false),
-
-(147, 'Conexão privada e criptografada sobre a internet.', true),
-(147, 'Rede local usada em empresas.', false),
-(147, 'Protocolo de transferência de arquivos.', false),
-(147, 'Servidor que distribui IP.', false),
-(147, 'Programa de navegação web.', false),
-
-(148, 'Nova versão do protocolo IP com mais endereços.', true),
-(148, 'Versão criptografada do IPv4.', false),
-(148, 'Sistema de nomes de domínio.', false),
-(148, 'Protocolo de envio de emails.', false),
-(148, 'Tipo de firewall.', false),
-
-(149, 'Valor usado para identificar a parte de rede e host do IP.', true),
-(149, 'Número da porta usada em conexão segura.', false),
-(149, 'Endereço físico da placa de rede.', false),
-(149, 'Nome do provedor de internet.', false),
-(149, 'Protocolo de roteamento.', false),
-
-(150, 'Protocolos que criptografam a comunicação na internet.', true),
-(150, 'Protocolos usados apenas para envio de email.', false),
-(150, 'Protocolos de armazenamento em nuvem.', false),
-(150, 'Protocolos de acesso local ao computador.', false),
-(150, 'Protocolos de edição de páginas web.', false),
-
--- DISCIPLINA 11 ===============================================
-
-(151, 'Aplicação desenvolvida para dispositivos móveis.', true),
-(151, 'Programa usado apenas em computadores de mesa.', false),
-(151, 'Sistema operacional de servidores.', false),
-(151, 'Banco de dados em nuvem.', false),
-(151, 'Protocolo de internet.', false),
-
-(152, 'Sistema operacional para dispositivos móveis.', true),
-(152, 'Linguagem de programação para web.', false),
-(152, 'Aplicativo de mensagens.', false),
-(152, 'Banco de dados local.', false),
-(152, 'Editor de código.', false),
-
-(153, 'Arquivo de instalação de aplicativos Android.', true),
-(153, 'Banco de dados usado em celulares.', false),
-(153, 'Componente físico do smartphone.', false),
-(153, 'Sistema operacional do Android.', false),
-(153, 'Arquivo de backup do sistema.', false),
-
-(154, 'Tela ou componente que representa uma interface no Android.', true),
-(154, 'Banco de dados local do aplicativo.', false),
-(154, 'Sistema de arquivos do celular.', false),
-(154, 'Arquivo de instalação.', false),
-(154, 'Processador do dispositivo.', false),
-
-(155, 'Parte visual com a qual o usuário interage.', true),
-(155, 'Código responsável pelo banco de dados.', false),
-(155, 'Sistema operacional do dispositivo.', false),
-(155, 'Protocolo de rede.', false),
-(155, 'Memória interna do aparelho.', false),
-
-(156, 'Mecanismo usado para comunicação entre componentes do Android.', true),
-(156, 'Banco de dados nativo do sistema.', false),
-(156, 'Tipo de layout responsivo.', false),
-(156, 'Arquivo de instalação do app.', false),
-(156, 'Comando para depuração.', false),
-
-(157, 'Componente usado para exibir listas de forma eficiente.', true),
-(157, 'Ferramenta para editar imagens.', false),
-(157, 'Banco de dados em nuvem.', false),
-(157, 'Sistema de notificações.', false),
-(157, 'Componente de autenticação.', false),
-
-(158, 'Banco de dados relacional leve usado localmente.', true),
-(158, 'Sistema operacional do Android.', false),
-(158, 'Biblioteca de interface gráfica.', false),
-(158, 'Serviço de hospedagem em nuvem.', false),
-(158, 'Protocolo de internet.', false),
-
-(159, 'Interface que permite comunicação entre app e serviços externos.', true),
-(159, 'Banco de dados interno do aplicativo.', false),
-(159, 'Sistema de navegação entre telas.', false),
-(159, 'Ferramenta para compilar código.', false),
-(159, 'Editor visual de layouts.', false),
-
-(160, 'Programa que simula um dispositivo móvel no computador.', true),
-(160, 'Aplicativo publicado na loja.', false),
-(160, 'Banco de dados local.', false),
-(160, 'Componente físico do celular.', false),
-(160, 'Sistema de notificações.', false),
-
-(161, 'Conjunto de estados pelos quais uma Activity passa.', true),
-(161, 'Lista de permissões do aplicativo.', false),
-(161, 'Estrutura de banco de dados local.', false),
-(161, 'Processo de instalação do APK.', false),
-(161, 'Sistema de autenticação do usuário.', false),
-
-(162, 'Plataforma de serviços em nuvem para apps.', true),
-(162, 'Banco de dados local do Android.', false),
-(162, 'Sistema operacional móvel.', false),
-(162, 'Editor de código.', false),
-(162, 'Tipo de emulador.', false),
-
-(163, 'Armazenamento de dados diretamente no dispositivo.', true),
-(163, 'Armazenamento apenas em servidores externos.', false),
-(163, 'Processo de compilação do app.', false),
-(163, 'Comunicação com APIs externas.', false),
-(163, 'Criação de interfaces gráficas.', false),
-
-(164, 'Arquitetura que separa modelo, visualização e lógica de apresentação.', true),
-(164, 'Arquitetura baseada apenas em banco de dados.', false),
-(164, 'Arquitetura usada só para sites.', false),
-(164, 'Arquitetura exclusiva de sistemas operacionais.', false),
-(164, 'Arquitetura de rede local.', false),
-
-(165, 'Capacidade da interface se adaptar a diferentes telas móveis.', true),
-(165, 'Capacidade do app funcionar sem internet.', false),
-(165, 'Capacidade de armazenar mais dados.', false),
-(165, 'Capacidade de usar múltiplos bancos de dados.', false),
-(165, 'Capacidade de compilar mais rápido.', false),
-
--- DISCIPLINA 12 ====================================================
-
-(166, 'Linguagem de programação usada principalmente no backend web.', true),
-(166, 'Linguagem usada apenas para estilizar páginas.', false),
-(166, 'Banco de dados relacional.', false),
-(166, 'Sistema operacional para servidores.', false),
-(166, 'Protocolo de internet.', false),
-
-(167, 'Parte do sistema que roda no servidor e trata lógica e dados.', true),
-(167, 'Parte visual exibida ao usuário no navegador.', false),
-(167, 'Banco de dados usado pela aplicação.', false),
-(167, 'Sistema operacional do servidor.', false),
-(167, 'Programa de edição de código.', false),
-
-(168, 'Parte visual da aplicação com a qual o usuário interage.', true),
-(168, 'Parte responsável pelo banco de dados.', false),
-(168, 'Parte que executa no servidor.', false),
-(168, 'Parte usada para configurar rede.', false),
-(168, 'Parte responsável por compilar código.', false),
-
-(169, 'Conjunto de campos usados para enviar dados do usuário.', true),
-(169, 'Tabela usada em banco de dados.', false),
-(169, 'Comando para criar páginas HTML.', false),
-(169, 'Estrutura usada apenas em CSS.', false),
-(169, 'Arquivo de configuração do servidor.', false),
-
-(170, 'Programa que hospeda e entrega páginas e aplicações web.', true),
-(170, 'Programa usado apenas para editar imagens.', false),
-(170, 'Banco de dados distribuído.', false),
-(170, 'Sistema de versionamento.', false),
-(170, 'Linguagem de marcação.', false),
-
-(171, 'Mecanismo que mantém dados do usuário entre requisições.', true),
-(171, 'Arquivo usado para estilizar páginas.', false),
-(171, 'Comando SQL para consultar dados.', false),
-(171, 'Programa de autenticação do sistema.', false),
-(171, 'Tipo de API para mobile.', false),
-
-(172, 'Pequeno dado armazenado no navegador do usuário.', true),
-(172, 'Arquivo de configuração do servidor.', false),
-(172, 'Tabela temporária do banco de dados.', false),
-(172, 'Método de criptografia.', false),
-(172, 'Componente visual do frontend.', false),
-
-(173, 'Processo de verificar a identidade de um usuário.', true),
-(173, 'Processo de apagar sessões antigas.', false),
-(173, 'Processo de criar tabelas no banco.', false),
-(173, 'Processo de estilizar páginas.', false),
-(173, 'Processo de compilar código.', false),
-
-(174, 'Operações de criar, ler, atualizar e excluir dados.', true),
-(174, 'Operações de compilar e executar código.', false),
-(174, 'Operações de criptografar arquivos.', false),
-(174, 'Operações de monitorar servidores.', false),
-(174, 'Operações de desenhar interfaces.', false),
-
-(175, 'Ligação da aplicação com o banco para manipular dados.', true),
-(175, 'Ligação entre frontend e CSS.', false),
-(175, 'Ligação entre duas páginas HTML.', false),
-(175, 'Ligação entre teclado e monitor.', false),
-(175, 'Ligação entre rede e firewall.', false),
-
-(176, 'Interface que segue princípios de recursos e métodos HTTP.', true),
-(176, 'Banco de dados usado apenas em APIs.', false),
-(176, 'Linguagem de programação para frontend.', false),
-(176, 'Servidor de hospedagem de arquivos.', false),
-(176, 'Framework visual para HTML.', false),
-
-(177, 'Token usado para autenticação e troca segura de informações.', true),
-(177, 'Banco de dados em memória.', false),
-(177, 'Arquivo de configuração do servidor.', false),
-(177, 'Método de estilização de páginas.', false),
-(177, 'Tipo de sessão armazenada em navegador.', false),
-
-(178, 'Técnica que mapeia objetos da aplicação para tabelas do banco.', true),
-(178, 'Método de criptografia de senhas.', false),
-(178, 'Modelo de arquitetura cliente-servidor.', false),
-(178, 'Sistema de cache de páginas.', false),
-(178, 'Framework de design responsivo.', false),
-
-(179, 'Camada intermediária que processa requisições e respostas.', true),
-(179, 'Componente visual usado em formulários.', false),
-(179, 'Tabela auxiliar do banco de dados.', false),
-(179, 'Arquivo de configuração do navegador.', false),
-(179, 'Sistema de autenticação local.', false),
-
-(180, 'Modelo em que cliente faz requisições e servidor responde.', true),
-(180, 'Modelo em que banco de dados controla a interface.', false),
-(180, 'Modelo em que frontend substitui o backend.', false),
-(180, 'Modelo de armazenamento em nuvem.', false),
-(180, 'Modelo usado apenas em aplicativos mobile.', false);
-
-
-DELIMITER //
-
--- =========================================================
+INSERT INTO
+    curso (id, nome, sigla)
+VALUES
+    (1, 'Desenvolvimento de Sistemas', 'DS');
+
+-- Inserção de Disciplinas --
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (1, 'Programação e Algoritmos', 1, 'PA', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (2, 'Banco de Dados I', 1, 'BD1', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (3, 'Análise e Projeto de Sistemas', 1, 'APS', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (4, 'Design Digital', 1, 'DD', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (5, 'Programação Web I', 1, 'PW1', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (6, 'Fundamentos da Informática', 1, 'FI', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (7, 'Técnicas de Programação', 1, 'TP', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (8, 'Desenvolvimento de Sistemas', 1, 'DS', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (9, 'Banco de Dados II', 2, 'BD2', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (10, 'Internet e Protocolos', 2, 'IP', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        11,
+        'Programação de Aplicativos Mobile I',
+        2,
+        'PAM1',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (12, 'Programação Web II', 2, 'PW2', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        13,
+        'Segurança de Sistemas da Informação',
+        3,
+        'SSI',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (14, 'Banco de Dados III', 3, 'BD3', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (15, 'Sistemas Embarcados', 2, 'SE', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        16,
+        'Programação de Aplicativos Mobile II',
+        3,
+        'PAM2',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (17, 'Programação Web III', 3, 'PW3', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (18, 'Qualidade e Teste de Software', 3, 'QTS', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (20, 'Inglês Instrumental', 1, 'II', 1);
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        21,
+        'Ética e Cidadania Organizacional',
+        1,
+        'ECO',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        22,
+        'Operação de Software Aplicativo',
+        1,
+        'OSA',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        23,
+        'Linguagem, Trabalho e Tecnologia',
+        3,
+        'LTT',
+        1
+    );
+
+INSERT INTO
+    disciplina (id, nome, modulo, sigla, id_curso)
+VALUES
+    (
+        24,
+        'Desenvolvimento de Sistemas II',
+        3,
+        'DS2',
+        1
+    );
+
+SET
+    FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE alternativa;
+
+TRUNCATE TABLE questao;
+
+SET
+    FOREIGN_KEY_CHECKS = 1;
+
+-- Inserção de Questões e Alternativas dos PDFs --
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        1,
+        'O que significa “manual técnico” em inglês?',
+        10,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (1, 'User file', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (1, 'Technical manual', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (1, 'Data sheet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (1, 'Work paper', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        2,
+        'Qual é a tradução correta de “e-mail comercial”?',
+        10,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (2, 'Company mail', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (2, 'Office text', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (2, 'Business e-mail', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (2, 'Work letter', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (3, '“Glossário técnico” em inglês é:', 10, 20);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (3, 'Technical notes', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (3, 'Technical dictionary', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (3, 'Technical glossary', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (3, 'Technical list', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (4, 'O que significa “customer service”?', 10, 20);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (4, 'Rede social', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (4, 'Atendimento ao cliente', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (4, 'Sistema operacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (4, 'Banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (5, '“Carta comercial” em inglês é:', 10, 20);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (5, 'Work card', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (5, 'Company note', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (5, 'Office paper', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (5, 'Business letter', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        6,
+        'O que significa “listening” no contexto de inglês instrumental?',
+        20,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (6, 'Produção de glossários', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (6, 'Escrita técnica', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (6, 'Compreensão auditiva', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (6, 'Leitura de textos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        7,
+        'O que significa “speaking” no ambiente profissional?',
+        20,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (7, 'Produção de glossários', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (7, 'Expressão oral', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (7, 'Leitura de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (7, 'Escrita técnica', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        8,
+        'O que significa “reading” em inglês instrumental?',
+        20,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (8, 'Produção de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (8, 'Vocabulário técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (8, 'Estratégias de leitura e interpretação', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (8, 'Expressão oral', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        9,
+        'O que significa “writing” em inglês instrumental?',
+        20,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (9, 'Produção de textos técnicos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (9, 'Vocabulário técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (9, 'Compreensão auditiva', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (9, 'Expressão oral', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (10, 'O que significa “grammar focus”?', 20, 20);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (10, 'Produção de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (10, 'Expressão oral', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (10, 'Vocabulário técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        10,
+        'Compreensão e uso dos aspectos linguísticos',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        11,
+        'O que significa “technical terminology”?',
+        30,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (11, 'Vocabulário coloquial', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (11, 'Terminologia técnico-científica', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (11, 'Vocabulário informal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (11, 'Vocabulário literário', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        12,
+        'O que significa “administrative correspondence”?',
+        30,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (12, 'Glossário técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (12, 'Carta pessoal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (12, 'Correspondência administrativa', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (12, 'Texto literário', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        13,
+        'O que significa “scientific article”?',
+        30,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (13, 'Carta comercial', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (13, 'Manual de instruções', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (13, 'Artigo técnico-científico', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (13, 'Folheto de divulgação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        14,
+        'O que significa “business communication”?',
+        30,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (14, 'Comunicação artística', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (14, 'Comunicação pessoal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (14, 'Comunicação empresarial', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (14, 'Comunicação literária', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        15,
+        'O que significa “technical documentation”?',
+        30,
+        20
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (15, 'Texto literário', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (15, 'Glossário informal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (15, 'Carta pessoal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (15, 'Documentação técnica', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (16, 'O que é ética?', 10, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (16, 'Conjunto de valores e princípios', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (16, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (16, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (16, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (17, 'O que é cidadania?', 10, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (17, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (17, 'Exercício de direitos e deveres', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (17, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (17, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (18, 'O que é moral?', 10, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (18, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (18, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (18, 'Conjunto de costumes e regras sociais', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (18, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        19,
+        'O que é respeito no ambiente de trabalho?',
+        10,
+        21
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (19, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (19, 'Executar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (19, 'Compilar código', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (19, 'Reconhecimento do valor do outro', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (20, 'O que é responsabilidade social?', 10, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (20, 'Compromisso da empresa com a sociedade', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (20, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (20, 'Compilar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (20, 'Usar IDE', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (21, 'O que é ética profissional?', 20, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (21, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        21,
+        'Conjunto de regras de conduta no trabalho',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (21, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (21, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        22,
+        'O que é Código de Defesa do Consumidor?',
+        20,
+        21
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (22, 'Manual técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (22, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        22,
+        'Conjunto de normas que protegem os direitos do consumidor',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (22, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (23, 'O que é legislação ambiental?', 20, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        23,
+        'Normas que regulam o uso sustentável dos recursos naturais',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (23, 'Manual técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (23, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (23, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (24, 'O que é Código de Ética de TI?', 20, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (24, 'Manual técnico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (24, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (24, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        24,
+        'Normas de conduta para profissionais de tecnologia',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (25, 'O que é inclusão social?', 20, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        25,
+        'Garantia de participação de todos na sociedade',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (25, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (25, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (25, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        26,
+        'O que é a Lei da Transparência (Lei Complementar 131/2009)?',
+        30,
+        21
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (26, 'Lei que regula direitos autorais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        26,
+        'Lei que obriga União, estados e municípios a divulgar seus gastos em',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        26,
+        'Lei que cria o Código de Defesa do Consumidor',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (26, 'Lei que regula patentes', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        27,
+        'O que é a Lei de Acesso à Informação (Lei 12.527/2011)?',
+        30,
+        21
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        27,
+        'Lei que garante acesso às informações públicas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (27, 'Lei que regula direitos autorais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        27,
+        'Lei que cria o Código de Defesa do Consumidor',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (27, 'Lei que regula patentes', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (28, 'O que é a LGPD (Lei 13.709/2018)?', 30, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (28, 'Lei de Direitos Autorais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (28, 'Lei da Transparência', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (28, 'Lei Geral de Proteção de Dados Pessoais', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (28, 'Lei de Acesso à Informação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        29,
+        'O que é responsabilidade corporativa?',
+        30,
+        21
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (29, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (29, 'Compilar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (29, 'Usar IDE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        29,
+        'Compromisso da empresa com sociedade e meio ambiente',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (30, 'O que é governança corporativa?', 30, 21);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        30,
+        'Conjunto de práticas para gestão responsável e transparente',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (30, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (30, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (30, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (31, 'O que é uma imagem raster (bitmap)?', 10, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (31, 'Imagem formada por pixels', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (31, 'Imagem formada por vetores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (31, 'Texto digital', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (31, 'Som digital', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        32,
+        'Qual formato é comum para imagens raster?',
+        10,
+        4
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (32, 'SVG', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (32, 'JPG', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (32, 'TXT', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (32, 'DOC', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (33, 'O que é uma imagem vetorial?', 10, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (33, 'Imagem formada por pixels', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (33, 'Texto digital', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        33,
+        'Imagem formada por linhas e curvas matemáticas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (33, 'Som digital', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        34,
+        'Qual formato é comum para imagens vetoriais?',
+        10,
+        4
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (34, 'JPG', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (34, 'PNG', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (34, 'DOC', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (34, 'SVG', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (35, 'O que significa CMYK?', 10, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (35, 'Modelo de cores usado para impressão', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (35, 'Modelo de cores usado em telas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (35, 'Código de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (35, 'Banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (36, 'O que significa RGB?', 20, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (36, 'Modelo de cores usado em telas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (36, 'Modelo de cores usado para impressão', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (36, 'Código de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (36, 'Banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (37, 'O que é prototipação de interfaces?', 20, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (37, 'Criação de banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        37,
+        'Criação de modelos visuais iniciais de aplicativos e sites',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (37, 'Criação de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (37, 'Criação de textos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (38, 'O que é tipografia?', 20, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (38, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (38, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (38, 'Estilo e aparência das letras', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (38, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (39, 'O que é Gestalt no design?', 20, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (39, 'Modelo de cores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (39, 'Linguagem de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (39, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        39,
+        'Conjunto de princípios de percepção visual',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        40,
+        'O que é transparência em imagens digitais?',
+        20,
+        4
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        40,
+        'Capacidade de deixar áreas sem cor visíveis',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (40, 'Capacidade de aumentar resolução', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (40, 'Capacidade de criar vetores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (40, 'Capacidade de criar texto', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        41,
+        'O que é HEXADECIMAL em design digital?',
+        30,
+        4
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        41,
+        'Código usado para representar cores em sistemas digitais',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (41, 'Código usado para representar texto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (41, 'Código usado para representar sons', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (41, 'Código usado para representar vetores', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (42, 'O que é um wireframe?', 30, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (42, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (42, 'Esboço estrutural de uma interface', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (42, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (42, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (43, 'O que é um pictograma?', 30, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (43, 'Texto digital', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (43, 'Som digital', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        43,
+        'Símbolo gráfico simples que representa uma ideia ou objeto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (43, 'Banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (44, 'O que é um banco de imagens?', 30, 4);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (44, 'Banco de dados relacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (44, 'Banco de sons', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (44, 'Banco de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        44,
+        'Repositório de imagens para uso em projetos',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        45,
+        'O que é prototipagem de alta fidelidade?',
+        30,
+        4
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        45,
+        'Protótipo detalhado próximo ao produto final',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (45, 'Protótipo simples em papel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (45, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (45, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (46, 'Qual a função da tag <p> em HTML?', 10, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (46, 'Criar parágrafo', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (46, 'Criar tabela', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (46, 'Criar imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (46, 'Criar link', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (47, 'Qual a função da tag <img>?', 10, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (47, 'Criar parágrafo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (47, 'Inserir imagem', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (47, 'Criar tabela', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (47, 'Criar link', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (48, 'Qual a função da tag <a>?', 10, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (48, 'Criar tabela', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (48, 'Criar imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (48, 'Criar link', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (48, 'Criar parágrafo', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        49,
+        'Qual a função da propriedade CSS color?',
+        10,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (49, 'Definir tamanho da fonte', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (49, 'Definir margem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (49, 'Definir borda', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (49, 'Definir cor do texto', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        50,
+        'Qual a função da propriedade CSS background-color?',
+        10,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (50, 'Definir cor de fundo', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (50, 'Definir cor do texto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (50, 'Definir tamanho da fonte', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (50, 'Definir borda', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        51,
+        'Qual a função da tag <form> em HTML?',
+        20,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (51, 'Criar formulário', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (51, 'Criar tabela', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (51, 'Criar imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (51, 'Criar link', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (52, 'Qual a função da tag <table>?', 20, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (52, 'Criar formulário', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (52, 'Criar tabela', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (52, 'Criar imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (52, 'Criar link', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        53,
+        'Qual a função do comando document.getElementById() em',
+        20,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (53, 'Criar variável', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (53, 'Executar função', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (53, 'Selecionar elemento pelo ID', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (53, 'Criar tabela', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        54,
+        'Qual a função da estrutura if/else em JavaScript?',
+        20,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (54, 'Tomar decisões no código', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (54, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (54, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (54, 'Inserir imagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (55, 'Qual a função do Box Model em CSS?', 20, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (55, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (55, 'Criar links', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (55, 'Criar imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        55,
+        'Definir margens, bordas, padding e conteúdo',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (56, 'Qual a função do Flexbox em CSS?', 30, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        56,
+        'Organizar elementos em layouts flexíveis',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (56, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (56, 'Criar links', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (56, 'Criar imagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        57,
+        'Qual a função do Grid Layout em CSS?',
+        30,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (57, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        57,
+        'Organizar elementos em grades bidimensionais',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (57, 'Criar links', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (57, 'Criar imagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        58,
+        'O que significa async/await em JavaScript?',
+        30,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (58, 'Estrutura para criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (58, 'Estrutura para criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        58,
+        'Estrutura para lidar com programação assíncrona',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (58, 'Estrutura para criar links', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        59,
+        'Qual a função do JSON em JavaScript?',
+        30,
+        5
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (59, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (59, 'Criar links', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (59, 'Criar imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (59, 'Formato para troca de dados', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (60, 'Qual a função do GitHub Pages?', 30, 5);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (60, 'Publicar sites estáticos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (60, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (60, 'Criar links', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (60, 'Criar imagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (61, 'O que é hardware?', 10, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (61, 'Parte física do computador', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (61, 'Programas de computador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (61, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (61, 'Rede', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (62, 'O que é software?', 10, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (62, 'Parte física', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (62, 'Programas e sistemas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (62, 'Cabos e periféricos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (62, 'Internet', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        63,
+        'Qual destes é um sistema operacional?',
+        10,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (63, 'Excel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (63, 'Chrome', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (63, 'Windows', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (63, 'Word', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (64, 'O que é memória RAM?', 10, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (64, 'Memória permanente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (64, 'Disco rígido', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (64, 'Processador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (64, 'Memória temporária de acesso rápido', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        65,
+        'Qual destes é um periférico de entrada?',
+        10,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (65, 'Teclado', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (65, 'Monitor', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (65, 'Impressora', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (65, 'Caixa de som', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (66, 'O que é representação binária?', 20, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        66,
+        'Forma de representar informações usando 0 e 1',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        66,
+        'Forma de representar informações usando letras',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        66,
+        'Forma de representar informações usando imagens',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        66,
+        'Forma de representar informações usando sons',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (67, 'O que é software livre?', 20, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (67, 'Software pago', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        67,
+        'Software que pode ser usado, modificado e distribuído livremente',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (67, 'Software de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (67, 'Software proprietário', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (68, 'O que é virtualização?', 20, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (68, 'Backup de arquivos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (68, 'Criação de tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        68,
+        'Uso de máquinas virtuais para simular sistemas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (68, 'Instalação de programas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (69, 'O que é rede local (LAN)?', 20, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (69, 'Rede mundial', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (69, 'Rede sem fio global', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (69, 'Rede de servidores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (69, 'Rede de computadores em pequena área', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (70, 'O que é computação em nuvem?', 20, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        70,
+        'Armazenamento e processamento de dados pela internet',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (70, 'Disco rígido externo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (70, 'Memória RAM', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (70, 'Processador', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        71,
+        'Qual comando do Windows em linha de comando exibe o conteúdo de',
+        30,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (71, 'dir', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (71, 'ls', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (71, 'cd', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (71, 'pwd', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        72,
+        'Qual comando do Linux em linha de comando exibe o conteúdo de um',
+        30,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (72, 'dir', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (72, 'ls', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (72, 'cd', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (72, 'pwd', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        73,
+        'Qual comando do Windows em linha de comando muda de diretório?',
+        30,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (73, 'ls', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (73, 'dir', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (73, 'cd', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (73, 'pwd', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        74,
+        'Qual comando do Linux em linha de comando mostra o diretório atual?',
+        30,
+        6
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (74, 'ls', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (74, 'cd', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (74, 'dir', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (74, 'pwd', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (75, 'O que é Internet das Coisas (IoT)?', 30, 6);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        75,
+        'Conexão de objetos físicos à internet para troca de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (75, 'Banco de dados relacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (75, 'Disco rígido externo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (75, 'Memória RAM', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        76,
+        'Qual programa é usado para edição de textos?',
+        10,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (76, 'Word', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (76, 'Excel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (76, 'PowerPoint', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (76, 'Access', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        77,
+        'Qual programa é usado para planilhas eletrônicas?',
+        10,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (77, 'Word', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (77, 'Excel', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (77, 'PowerPoint', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (77, 'Outlook', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        78,
+        'Qual programa é usado para apresentações?',
+        10,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (78, 'Word', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (78, 'Excel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (78, 'PowerPoint', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (78, 'Access', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        79,
+        'Qual recurso do Word insere numeração automática em listas?',
+        10,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (79, 'Mala direta', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (79, 'Cabeçalho', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (79, 'Sumário', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (79, 'Marcadores e numeração', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        80,
+        'Qual recurso do Excel permite somar valores rapidamente?',
+        10,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (80, 'Função SOMA', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (80, 'Função MÉDIA', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (80, 'Função SE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (80, 'Função PROCV', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        81,
+        'Qual recurso do Word permite criar cartas personalizadas para vários',
+        20,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (81, 'Mala direta', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (81, 'Cabeçalho', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (81, 'Rodapé', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (81, 'Sumário', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        82,
+        'Qual recurso do Excel permite aplicar regras visuais a células?',
+        20,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (82, 'Função SE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (82, 'Formatação condicional', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (82, 'Filtro', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (82, 'Gráfico', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        83,
+        'Qual recurso do PowerPoint adiciona movimento aos elementos do',
+        20,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (83, 'Layout', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (83, 'Hiperlink', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (83, 'Animações', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (83, 'Cabeçalho', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        84,
+        'Qual recurso do Word gera automaticamente índice de capítulos?',
+        20,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (84, 'Mala direta', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (84, 'Rodapé', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (84, 'Comentários', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (84, 'Sumário', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        85,
+        'Qual recurso do Excel permite organizar dados em ordem crescente ou',
+        20,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (85, 'Classificação', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (85, 'Filtro', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (85, 'Gráfico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (85, 'Validação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        86,
+        'Qual função do Excel retorna um valor de uma tabela com base em uma',
+        30,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (86, 'PROCV', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (86, 'SOMA', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (86, 'MÉDIA', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (86, 'SE', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        87,
+        'Qual recurso do Word insere citações e gera bibliografia',
+        30,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (87, 'Mala direta', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (87, 'Referências', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (87, 'Sumário', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (87, 'Comentários', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        88,
+        'Qual recurso do PowerPoint permite criar botões interativos nos slides?',
+        30,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (88, 'Layout', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (88, 'Cabeçalho', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (88, 'Hiperlinks e botões de ação', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (88, 'Rodapé', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        89,
+        'Qual recurso do Excel permite criar relatórios dinâmicos a partir de',
+        30,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (89, 'Filtro', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (89, 'Gráfico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (89, 'Classificação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (89, 'Tabela dinâmica', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        90,
+        'Qual recurso colaborativo permite editar documentos em tempo real na',
+        30,
+        22
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        90,
+        'Aplicativos online como Google Docs e Office 365',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (90, 'Word offline', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (90, 'Excel offline', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (90, 'PowerPoint offline', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (91, 'O que é um banco de dados?', 10, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (91, 'Conjunto organizado de informações', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (91, 'Programa de edição de texto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (91, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (91, 'Rede', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (92, 'O que significa SQL?', 10, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (92, 'Simple Query Language', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (92, 'Structured Query Language', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (92, 'System Query Language', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (92, 'Standard Quick Language', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        93,
+        'Para que serve uma tabela em banco de dados?',
+        10,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (93, 'Executar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (93, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (93, 'Organizar dados em linhas e colunas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (93, 'Depurar erros', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (94, 'O que é uma chave primária?', 10, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (94, 'Um compilador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (94, 'Uma constante', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (94, 'Uma linguagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (94, 'Identificador único de registros', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        95,
+        'Cite um sistema gerenciador de banco de dados relacional (SGBDR).',
+        10,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (95, 'MySQL', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (95, 'Python', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (95, 'Excel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (95, 'HTML', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (96, 'Diferença entre DELETE e DROP:', 20, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (96, 'DELETE remove dados, DROP remove tabela', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (96, 'Ambos removem tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (96, 'Ambos removem dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (96, 'Não há diferença', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        97,
+        'O que é relacionamento entre tabelas?',
+        20,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (97, 'Criação de variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        97,
+        'Conexão entre dados de diferentes tabelas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (97, 'Execução de programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (97, 'Depuração', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (98, 'Qual a função do comando SELECT?', 20, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (98, 'Apagar registros', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (98, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (98, 'Consultar dados', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (98, 'Compilar código', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (99, 'O que é modelagem de dados?', 20, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (99, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (99, 'Executar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (99, 'Depurar erros', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (99, 'Processo de estruturar dados e relações', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (100, 'O que é chave estrangeira?', 20, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        100,
+        'Campo que referencia chave primária de outra tabela',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (100, 'Um compilador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (100, 'Uma constante', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (100, 'Uma linguagem', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        101,
+        'Diferença entre bancos relacionais e não relacionais:',
+        30,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        101,
+        'Relacionais usam tabelas, não relacionais usam documentos ou',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (101, 'Ambos usam tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (101, 'Ambos usam grafos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (101, 'Não há diferença', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        102,
+        'O que é normalização de banco de dados?',
+        30,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (102, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        102,
+        'Processo de organizar dados para evitar redundância',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (102, 'Executar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (102, 'Depurar erros', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (103, 'Como funciona um JOIN em SQL?', 30, 2);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (103, 'Cria variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (103, 'Apaga registros', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (103, 'Combina dados de duas ou mais tabelas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (103, 'Compila código', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        104,
+        'Importância da integridade referencial:',
+        30,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (104, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (104, 'Executar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (104, 'Depurar erros', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        104,
+        'Garantir consistência entre tabelas relacionadas',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        105,
+        'Etapas para criar modelo lógico de banco de dados:',
+        30,
+        2
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        105,
+        'Definir entidades, atributos, relacionamentos e restrições',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (105, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (105, 'Compilar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (105, 'Usar IDE', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (106, 'O que é um algoritmo?', 10, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        106,
+        'Conjunto de instruções para resolver um problema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (106, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (106, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (106, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (107, 'O que é uma variável?', 10, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (107, 'Valor fixo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        107,
+        'Espaço na memória que pode armazenar valores',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (107, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (107, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (108, 'O que é uma constante?', 10, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (108, 'Valor que muda sempre', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (108, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        108,
+        'Valor que não pode ser alterado durante a execução',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (108, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (109, 'O que é uma IDE?', 10, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (109, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (109, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (109, 'Software', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (109, 'Ambiente de desenvolvimento integrado', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (110, 'O que significa “depuração”?', 10, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (110, 'Processo de encontrar e corrigir erros', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (110, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (110, 'Compilar programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (110, 'Usar banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (111, 'Qual a função do comando if/else?', 20, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (111, 'Tomar decisões no código', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (111, 'Criar variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (111, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (111, 'Inserir imagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (112, 'O que é laço de repetição?', 20, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (112, 'Estrutura que cria variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        112,
+        'Estrutura que executa um bloco de código várias vezes',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (112, 'Estrutura que compila programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (112, 'Estrutura que cria tabelas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (113, 'O que é teste de mesa?', 20, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (113, 'Criação de variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (113, 'Execução automática', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        113,
+        'Simulação manual da execução de um algoritmo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (113, 'Compilação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (114, 'O que é programação modular?', 20, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (114, 'Criação de variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (114, 'Compilação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (114, 'Depuração', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        114,
+        'Divisão do programa em funções e procedimentos',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (115, 'O que é recursividade?', 20, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (115, 'Função que chama a si mesma', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (115, 'Função que cria variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (115, 'Função que compila programas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (115, 'Função que cria tabelas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        116,
+        'Qual a diferença entre compilador e interpretador?',
+        30,
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        116,
+        'Compilador traduz todo o código antes da execução, interpretador',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (116, 'Ambos fazem a mesma coisa', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (116, 'Interpretador é mais rápido', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (116, 'Compilador não existe', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        117,
+        'O que é pilha de chamadas (call stack)?',
+        30,
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (117, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        117,
+        'Estrutura que armazena a sequência de chamadas de funções',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (117, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (117, 'Software', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (118, 'O que é tratamento de exceções?', 30, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (118, 'Criação de variáveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (118, 'Compilação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        118,
+        'Mecanismo para lidar com erros durante a execução',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (118, 'Depuração', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (119, 'O que é vetor?', 30, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (119, 'Estrutura que armazena apenas um valor', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (119, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (119, 'Hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        119,
+        'Estrutura que armazena vários valores do mesmo tipo em sequência',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (120, 'O que é matriz?', 30, 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        120,
+        'Estrutura bidimensional que armazena valores em linhas e colunas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (120, 'Estrutura unidimensional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (120, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (120, 'Hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        121,
+        'O que é um requisito funcional em um sistema?',
+        10,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        121,
+        'Define regras de funcionamento do sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (121, 'Define o horário da empresa', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (121, 'Define os custos do projeto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (121, 'Define a quantidade de funcionários', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        122,
+        'Qual metodologia abaixo é considerada ágil?',
+        10,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (122, 'UML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (122, 'Scrum', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (122, 'Ferramenta CASE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (122, 'Modelo relacional', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        123,
+        'Qual ferramenta pode ser usada para organização de tarefas em Kanban?',
+        10,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (123, 'Calculadora', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (123, 'Word', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (123, 'Trello', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (123, 'Paint', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (124, 'Quem remove impedimentos no Scrum?', 10, 3);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (124, 'Usuário final', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (124, 'Desenvolvedor', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (124, 'Product Owner', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (124, 'Scrum Master', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        125,
+        'O ciclo de vida de um sistema representa:',
+        10,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (125, 'O valor do software', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (125, 'O tempo de garantia do computador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        125,
+        'As etapas de desenvolvimento do sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (125, 'O número de usuários', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        126,
+        'Qual alternativa apresenta apenas tipos de requisitos?',
+        20,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (126, 'Scrum, Kanban e UML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        126,
+        'Funcionais, não funcionais e regras de negócio',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (126, 'Sprint, backlog e incremento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (126, 'Cascata, Scrum e XP', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (127, 'O Backlog do Produto no Scrum é:', 20, 3);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        127,
+        'Uma lista de funcionalidades do produto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (127, 'Um relatório financeiro', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (127, 'Um diagrama UML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (127, 'Uma linguagem de programação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (128, 'A UML é utilizada para:', 20, 3);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (128, 'Criar jogos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (128, 'Desenvolver bancos físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (128, 'Modelar sistemas orientados a objetos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (128, 'Fazer manutenção de computadores', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        129,
+        'O principal objetivo do Design Sprint é:',
+        20,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (129, 'Formatar computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (129, 'Criar planilhas financeiras', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (129, 'Trocar ferramentas CASE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (129, 'Testar rapidamente ideias e soluções', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        130,
+        'Uma característica do modelo em cascata é:',
+        20,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (130, 'Desenvolvimento sem etapas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (130, 'Ausência de documentação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (130, 'Etapas realizadas de forma sequencial', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (130, 'Entregas diárias obrigatórias', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        131,
+        'Qual evento do Scrum é destinado à avaliação do trabalho concluído ao final da Sprint?',
+        30,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (131, 'Revisão da Sprint', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (131, 'Reunião diária', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (131, 'Planejamento da Sprint', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (131, 'Retrospectiva da Sprint', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        132,
+        'Ferramentas CASE possuem como principal objetivo:',
+        30,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (132, 'Controlar redes de internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        132,
+        'Auxiliar na análise e desenvolvimento de sistemas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        132,
+        'Fazer manutenção física de computadores',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (132, 'Substituir programadores', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        133,
+        'Qual princípio do Manifesto Ágil valoriza mais as pessoas?',
+        30,
+        3
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (133, 'Processos acima de indivíduos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (133, 'Contratos acima da colaboração', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        133,
+        'Indivíduos e interações acima de processos e ferramentas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        133,
+        'Documentação acima de software funcionando',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (134, 'No Kanban, o principal objetivo é:', 30, 3);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (134, 'Criar bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (134, 'Eliminar programadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (134, 'Substituir o Scrum', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        134,
+        'Visualizar e controlar o fluxo de trabalho',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (135, 'O Product Owner é responsável por:', 30, 3);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (135, 'Configurar computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        135,
+        'Gerenciar e priorizar o Backlog do Produto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (135, 'Fazer manutenção da rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (135, 'Desenvolver sozinho o sistema', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        136,
+        'O que é um objeto na programação orientada a objetos?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (136, 'Um tipo de banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (136, 'Uma instância de uma classe', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (136, 'Um sistema operacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (136, 'Um compilador', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        137,
+        'Qual elemento é utilizado para armazenar características de um objeto?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (137, 'Método', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (137, 'Interface', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (137, 'Atributo', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (137, 'Namespace', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (138, 'O padrão MVC é utilizado para:', 10, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (138, 'Organizar a estrutura do sistema', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (138, 'Criar redes de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (138, 'Desenvolver hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (138, 'Fazer manutenção física', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        139,
+        'Qual operação CRUD é responsável por excluir dados?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (139, 'Create', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (139, 'Read', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (139, 'Update', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (139, 'Delete', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        140,
+        'Qual componente gráfico permite selecionar apenas uma opção entre várias?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (140, 'Caixa de texto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (140, 'Painel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (140, 'Botão de rádio', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (140, 'Aba', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        141,
+        'O encapsulamento na programação orientada a objetos serve para:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (141, 'Aumentar o tamanho do programa', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        141,
+        'Proteger e controlar o acesso aos dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (141, 'Excluir métodos automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (141, 'Criar bancos de dados relacionais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (142, 'A herança permite que uma classe:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        142,
+        'Utilize características de outra classe',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (142, 'Apague atributos automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (142, 'Crie apenas interfaces gráficas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (142, 'Trabalhe sem métodos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (143, 'O DAO é um padrão utilizado para:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (143, 'Criar formulários gráficos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (143, 'Gerenciar acesso aos dados do banco', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (143, 'Desenvolver jogos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (143, 'Fazer conexões de internet', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        144,
+        'Consultas parametrizadas ajudam principalmente na:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (144, 'Criação automática de tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (144, 'Organização de pastas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (144, 'Prevenção de SQL Injection', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (144, 'Criação de botões gráficos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (145, 'O polimorfismo permite que:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        145,
+        'Um método tenha diferentes comportamentos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (145, 'Um banco de dados seja excluído', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (145, 'Um formulário fique invisível', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (145, 'Um sistema funcione sem classes', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        146,
+        'A sobrecarga de métodos ocorre quando:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (146, 'Um método é apagado automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        146,
+        'Dois métodos possuem o mesmo nome com parâmetros diferentes',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (146, 'Uma classe não possui atributos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        146,
+        'O sistema utiliza mais de um banco de dados',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        147,
+        'Classes abstratas possuem como característica principal:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (147, 'Não poderem ser herdadas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (147, 'Não utilizarem métodos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        147,
+        'Servirem como modelo para outras classes',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        147,
+        'Funcionarem apenas em interfaces gráficas',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        148,
+        'Qual alternativa representa corretamente uma vantagem do padrão MVC?',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        148,
+        'Misturar interface e banco de dados no mesmo código',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (148, 'Eliminar o uso de classes', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (148, 'Impedir reutilização de código', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (148, 'Separar responsabilidades da aplicação', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (149, 'Namespaces são utilizados para:', 30, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        149,
+        'Organizar classes e evitar conflitos de nomes',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (149, 'Criar botões automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (149, 'Substituir bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (149, 'Excluir métodos duplicados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        150,
+        'A sobrescrita de métodos acontece quando:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        150,
+        'Um método da classe filha redefine o método da classe pai',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (150, 'Um método é executado duas vezes', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (150, 'Uma interface gráfica é recriada', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (150, 'Um atributo é removido da memória', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (151, 'O principal objetivo do TCC é:', 10, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        151,
+        'Desenvolver e planejar um projeto na área profissional',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (151, 'Apenas estudar matemática', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (151, 'Fazer manutenção de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (151, 'Criar redes de internet', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        152,
+        'Qual item pode ser considerado uma técnica de pesquisa?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (152, 'Questionário', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (152, 'Compilador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (152, 'Firewall', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (152, 'Driver', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        153,
+        'O cronograma de trabalho serve para:',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        153,
+        'Organizar as etapas e prazos do projeto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (153, 'Excluir informações do projeto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (153, 'Criar bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (153, 'Desenvolver hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        154,
+        'A justificativa em um projeto responde principalmente à pergunta:',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (154, 'Quem?', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (154, 'Onde?', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (154, 'Por quê?', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (154, 'Quando?', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        155,
+        'Qual documento pode ser utilizado na pesquisa de campo?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (155, 'Questionário', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (155, 'Antivírus', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (155, 'Linguagem de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (155, 'Sistema operacional', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        156,
+        'A pesquisa bibliográfica é classificada como:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (156, 'Documentação indireta', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (156, 'Pesquisa prática', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (156, 'Desenvolvimento mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (156, 'Programação orientada a objetos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        157,
+        'Um dos critérios para escolha do tema do TCC é:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (157, 'Popularidade em redes sociais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (157, 'Viabilidade', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (157, 'Quantidade de computadores disponíveis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (157, 'Tipo de internet utilizada', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        158,
+        'O objetivo geral de um projeto define:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (158, 'O custo do sistema', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        158,
+        'As linguagens de programação utilizadas',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        158,
+        'O que se pretende alcançar com o trabalho',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (158, 'Apenas o cronograma do projeto', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        159,
+        'A problematização em um TCC está relacionada com:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (159, 'A definição do problema a ser estudado', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (159, 'A criação de jogos eletrônicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (159, 'A manutenção de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (159, 'A exclusão de hipóteses', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (160, 'O fichamento é utilizado para:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (160, 'Formatar computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        160,
+        'Organizar informações de pesquisas e obras',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (160, 'Criar aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (160, 'Excluir documentos do projeto', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        161,
+        'A construção de hipóteses em um projeto tem como finalidade:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        161,
+        'Definir possíveis respostas para o problema estudado',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (161, 'Excluir dados da pesquisa', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (161, 'Criar bancos de dados automáticos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (161, 'Impedir entrevistas de campo', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        162,
+        'A identificação de lacunas no setor profissional significa:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        162,
+        'Encontrar demandas não atendidas plenamente',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (162, 'Desenvolver apenas sistemas antigos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (162, 'Eliminar novas tecnologias', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (162, 'Substituir pesquisas bibliográficas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        163,
+        'A análise de pertinência, relevância e viabilidade é utilizada para:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (163, 'Escolher o tema do TCC', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (163, 'Criar linguagens de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (163, 'Desenvolver peças de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (163, 'Organizar servidores de rede', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        164,
+        'Qual alternativa representa um exemplo de documentação direta?',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (164, 'Pesquisa bibliográfica', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (164, 'Pesquisa documental', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (164, 'Entrevista', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (164, 'Fichamento técnico', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        165,
+        'A relação entre TCC e empreendedorismo é importante porque:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        165,
+        'Permite desenvolver soluções e modelos de negócio inovadores',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (165, 'Elimina a necessidade de planejamento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (165, 'Substitui a pesquisa científica', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (165, 'Impede a criação de softwares', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        166,
+        'O que é um cronograma de atividades?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (166, 'Sistema operacional de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        166,
+        'Planejamento das tarefas e prazos de um projeto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (166, 'Banco de dados relacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (166, 'Linguagem de programação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        167,
+        'Qual é a função de um relatório técnico?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (167, 'Criar aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (167, 'Configurar redes de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        167,
+        'Registrar informações e resultados de um projeto',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (167, 'Editar imagens digitais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (168, 'O que é um fluxograma?', 10, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (168, 'Programa de edição de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (168, 'Banco de dados em nuvem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (168, 'Sistema de autenticação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        168,
+        'Representação gráfica de etapas de um processo',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        169,
+        'O referencial teórico de uma pesquisa é formado por:',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        169,
+        'Fontes e estudos utilizados como base do trabalho',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (169, 'Equipamentos de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (169, 'Configurações de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (169, 'Arquivos de instalação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        170,
+        'O que significa metodologia em um projeto?',
+        10,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (170, 'Tipo de linguagem de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        170,
+        'Conjunto de métodos e procedimentos utilizados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (170, 'Sistema de armazenamento físico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (170, 'Estrutura de redes sociais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (171, 'A tabulação de dados consiste em:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        171,
+        'Organizar informações coletadas em tabelas ou gráficos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (171, 'Criar sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (171, 'Desenvolver hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (171, 'Configurar impressoras', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (172, 'O objetivo da análise de dados é:', 20, 8);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (172, 'Criar bancos de dados físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (172, 'Melhorar velocidade da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        172,
+        'Interpretar e explicar informações obtidas na pesquisa',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (172, 'Desenvolver jogos digitais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        173,
+        'O dimensionamento de recursos serve para:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (173, 'Configurar sistemas embarcados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (173, 'Criar layouts de sites', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (173, 'Editar vídeos digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        173,
+        'Definir materiais, custos e necessidades do projeto',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        174,
+        'Qual é a finalidade de um gráfico em relatórios?',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        174,
+        'Facilitar a visualização e interpretação de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (174, 'Criar autenticação de usuários', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (174, 'Configurar servidores HTTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (174, 'Desenvolver drivers de hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        175,
+        'Sistemas de gerenciamento de projetos ajudam a:',
+        20,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (175, 'Criar componentes eletrônicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (175, 'Organizar tarefas, equipes e prazos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (175, 'Desenvolver processadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (175, 'Configurar roteadores físicos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        176,
+        'A formatação de trabalhos acadêmicos é importante para:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        176,
+        'Padronizar a apresentação e organização do conteúdo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (176, 'Melhorar desempenho do hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (176, 'Configurar aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (176, 'Criar bancos NoSQL', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        177,
+        'O processo de codificação de dados em pesquisas consiste em:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (177, 'Desenvolver sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        177,
+        'Classificar e organizar informações coletadas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (177, 'Configurar sensores digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (177, 'Criar efeitos visuais em apresentações', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        178,
+        'O empreendedorismo em projetos de tecnologia envolve:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (178, 'Exclusivamente manutenção de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (178, 'Apenas edição de documentos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        178,
+        'Desenvolvimento de soluções inovadoras e sustentáveis',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (178, 'Somente instalação de redes locais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        179,
+        'Um memorial descritivo é um documento utilizado para:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (179, 'Configurar bancos de dados relacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (179, 'Criar autenticação em APIs', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (179, 'Organizar protocolos de internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        179,
+        'Explicar detalhadamente características de um projeto',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        180,
+        'A apresentação oral de um TCC deve priorizar:',
+        30,
+        8
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (180, 'Clareza, organização e domínio do tema', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (180, 'Uso excessivo de animações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (180, 'Apenas leitura dos slides', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (180, 'Configuração de sistemas operacionais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        181,
+        'Qual linguagem SQL é utilizada para manipulação de dados?',
+        10,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (181, 'DML', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (181, 'DDL', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (181, 'TCL', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (181, 'DCL', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        182,
+        'Qual comando é utilizado para inserir dados em uma tabela?',
+        10,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (182, 'UPDATE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (182, 'DELETE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (182, 'INSERT', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (182, 'SELECT', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        183,
+        'O comando SELECT pertence à categoria:',
+        10,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (183, 'DML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (183, 'DQL', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (183, 'DCL', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (183, 'TCL', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        184,
+        'Qual comando remove dados de uma tabela?',
+        10,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (184, 'INSERT', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (184, 'UPDATE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (184, 'SELECT', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (184, 'DELETE', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        185,
+        'O COMMIT em uma transação serve para:',
+        10,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (185, 'Cancelar alterações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (185, 'Salvar alterações realizadas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (185, 'Excluir tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (185, 'Criar banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (186, 'O UPDATE é utilizado para:', 20, 9);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (186, 'Inserir registros', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (186, 'Consultar dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (186, 'Alterar dados existentes', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (186, 'Excluir tabelas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        187,
+        'A cláusula ORDER BY é utilizada para:',
+        20,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (187, 'Excluir registros duplicados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (187, 'Ordenar resultados de uma consulta', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (187, 'Criar tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (187, 'Fazer backup do banco', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        188,
+        'Qual função agregada é utilizada para contar registros?',
+        20,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (188, 'COUNT', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (188, 'SUM', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (188, 'AVG', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (188, 'MAX', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (189, 'O INNER JOIN é utilizado para:', 20, 9);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        189,
+        'Unir tabelas mostrando apenas dados relacionados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (189, 'Excluir relações entre tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (189, 'Criar novos bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        189,
+        'Atualizar várias tabelas ao mesmo tempo',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        190,
+        'O ROLLBACK em transações serve para:',
+        20,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (190, 'Confirmar alterações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (190, 'Criar índices', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (190, 'Desfazer alterações não confirmadas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (190, 'Excluir banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        191,
+        'Qual propriedade ACID garante que uma transação seja concluída totalmente ou',
+        30,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (191, 'Consistência', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (191, 'Isolamento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (191, 'Durabilidade', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (191, 'Atomicidade', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (192, 'O LEFT JOIN retorna:', 30, 9);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        192,
+        'Apenas registros iguais nas duas tabelas',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        192,
+        'Todos os registros da tabela da esquerda e os correspondentes da direita',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (192, 'Apenas registros da tabela da direita', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (192, 'Somente registros duplicados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (193, 'O CROSS JOIN gera:', 30, 9);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (193, 'Apenas registros relacionados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (193, 'Atualização automática dos dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (193, 'Produto cartesiano entre tabelas', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (193, 'Exclusão de registros repetidos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        194,
+        'Qual operação SQL combina resultados de duas consultas eliminando duplicidades?',
+        30,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (194, 'DIFFERENCE', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (194, 'INTERSECT', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (194, 'JOIN', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (194, 'UNION', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        195,
+        'A propriedade de durabilidade no ACID garante que:',
+        30,
+        9
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (195, 'Os dados sejam apagados após o uso', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        195,
+        'As alterações confirmadas permaneçam salvas mesmo após falhas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        195,
+        'Apenas um usuário utilize o banco por vez',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        195,
+        'Consultas sejam executadas mais rapidamente',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (196, 'O que é um sistema embarcado?', 10, 15);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        196,
+        'Um sistema desenvolvido apenas para jogos',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        196,
+        'Um sistema dedicado a executar funções específicas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (196, 'Um tipo de banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        196,
+        'Um programa utilizado apenas em computadores',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        197,
+        'Qual componente é utilizado para montagem de circuitos sem solda?',
+        10,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (197, 'Processador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (197, 'Capacitor', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (197, 'Protoboard', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (197, 'Monitor', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        198,
+        'Em programas para microcontroladores, qual função é executada repetidamente?',
+        10,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (198, 'main()', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (198, 'digitalRead()', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (198, 'setup()', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (198, 'loop()', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        199,
+        'Qual comando configura um pino como entrada ou saída?',
+        10,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (199, 'analogWrite()', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (199, 'pinMode()', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (199, 'delay()', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (199, 'micros()', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        200,
+        'LEDs são componentes utilizados para:',
+        10,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (200, 'Armazenar dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (200, 'Processar informações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (200, 'Emitir luz', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (200, 'Amplificar sinais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        201,
+        'A função digitalWrite() é utilizada para:',
+        20,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (201, 'Ler sinais analógicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (201, 'Configurar timers', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (201, 'Enviar sinais digitais para um pino', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (201, 'Reiniciar o microcontrolador', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (202, 'A função analogRead() serve para:', 20, 15);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (202, 'Ler sinais analógicos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (202, 'Criar números aleatórios', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (202, 'Desligar sensores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (202, 'Configurar botões', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        203,
+        'Qual estrutura é utilizada para repetir instruções em programação?',
+        20,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (203, 'Condição', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (203, 'Repetição', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (203, 'Variável', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (203, 'Biblioteca', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (204, 'O delay() é utilizado para:', 20, 15);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (204, 'Ler sensores digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (204, 'Gerar sons', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (204, 'Criar pausas na execução do programa', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (204, 'Configurar portas analógicas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        205,
+        'O movimento maker está relacionado com:',
+        20,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        205,
+        'Desenvolvimento apenas de softwares empresariais',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        205,
+        'Criação prática de projetos tecnológicos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (205, 'Exclusão de componentes eletrônicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (205, 'Uso exclusivo de computadores antigos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        206,
+        'A conversão Analógico-Digital permite:',
+        30,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        206,
+        'Transformar sinais analógicos em valores digitais',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (206, 'Aumentar a memória do microcontrolador', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (206, 'Criar interfaces gráficas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (206, 'Excluir sinais elétricos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (207, 'A função millis() retorna:', 30, 15);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (207, 'A temperatura do sistema', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        207,
+        'O tempo em milissegundos desde o início da execução',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (207, 'A quantidade de memória disponível', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (207, 'O número de portas digitais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        208,
+        'Bibliotecas em sistemas embarcados são utilizadas para:',
+        30,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (208, 'Organizar componentes físicos apenas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (208, 'Substituir microcontroladores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        208,
+        'Facilitar o uso de sensores e recursos específicos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (208, 'Eliminar o uso de funções', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        209,
+        'Qual alternativa representa corretamente uma característica da Internet das Coisas',
+        30,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        209,
+        'Dispositivos conectados trocando dados pela internet',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (209, 'Uso exclusivo de computadores sem rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (209, 'Sistemas sem sensores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        209,
+        'Eliminação de comunicação entre dispositivos',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        210,
+        'O uso de timers e contadores em microcontroladores permite:',
+        30,
+        15
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        210,
+        'Controlar intervalos e medições de tempo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (210, 'Aumentar o tamanho físico da placa', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (210, 'Excluir bibliotecas automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (210, 'Substituir entradas analógicas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        211,
+        'Qual plataforma é utilizada para desenvolvimento nativo de aplicativos Android?',
+        10,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (211, 'Swift', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (211, 'Kotlin', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (211, 'Ionic', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (211, 'Flutter', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        212,
+        'O Flutter é um modelo de desenvolvimento:',
+        10,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (212, 'Exclusivo para iOS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (212, 'Desktop', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (212, 'Nativo multiplataforma', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (212, 'Banco de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        213,
+        'Qual componente é utilizado para exibir textos em aplicativos mobile?',
+        10,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (213, 'Lista', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (213, 'Botão', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (213, 'Imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (213, 'Texto', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        214,
+        'O SDK em desenvolvimento mobile é utilizado para:',
+        10,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (214, 'Criar hardware para celulares', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        214,
+        'Fornecer ferramentas para desenvolvimento',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (214, 'Excluir aplicativos do aparelho', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (214, 'Formatar dispositivos móveis', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        215,
+        'As lojas de aplicativos servem para:',
+        10,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (215, 'Desenvolver bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (215, 'Armazenar componentes físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (215, 'Distribuir aplicativos para usuários', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (215, 'Configurar redes locais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        216,
+        'O React Native é considerado um modelo de desenvolvimento:',
+        20,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (216, 'Nativo multiplataforma', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (216, 'Exclusivo para Android', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (216, 'Exclusivo para iOS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (216, 'Apenas híbrido', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        217,
+        'O armazenamento offline em aplicativos permite:',
+        20,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        217,
+        'Utilizar dados sem conexão com internet',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (217, 'Excluir arquivos automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (217, 'Bloquear o uso do aplicativo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (217, 'Aumentar o tamanho da tela do celular', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        218,
+        'A função das permissões em aplicativos mobile é:',
+        20,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (218, 'Melhorar apenas a aparência do app', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        218,
+        'Controlar acesso a recursos do dispositivo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (218, 'Criar bancos de dados externos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (218, 'Excluir notificações do sistema', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (219, 'A splash screen é:', 20, 11);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        219,
+        'Uma tela inicial exibida ao abrir o aplicativo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (219, 'Um banco de dados interno', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (219, 'Um tipo de linguagem mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (219, 'Um sistema operacional', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        220,
+        'Navegação e roteamento em aplicativos mobile servem para:',
+        20,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        220,
+        'Trocar o sistema operacional do celular',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (220, 'Configurar internet móvel', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        220,
+        'Controlar a mudança entre telas do aplicativo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (220, 'Excluir componentes da interface', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        221,
+        'Qual alternativa apresenta apenas tecnologias híbridas?',
+        30,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (221, 'Java e Swift', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (221, 'Flutter e React Native', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (221, 'Cordova e Ionic', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (221, 'Kotlin e Xamarin', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        222,
+        'O gerenciamento de estado dos componentes é importante porque:',
+        30,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        222,
+        'Controla e atualiza informações da interface do aplicativo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (222, 'Remove permissões automaticamente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (222, 'Substitui o armazenamento offline', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (222, 'Cria emuladores para celulares', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        223,
+        'Emuladores no desenvolvimento mobile são utilizados para:',
+        30,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (223, 'Aumentar a memória do celular', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        223,
+        'Simular dispositivos para testes de aplicativos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (223, 'Criar bancos de dados online', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (223, 'Melhorar sinais de internet', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        224,
+        'O ciclo de vida de um aplicativo mobile representa:',
+        30,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (224, 'Apenas o design da interface', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (224, 'O tempo de bateria do celular', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        224,
+        'As etapas de execução e funcionamento do aplicativo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (224, 'A quantidade de usuários do sistema', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        225,
+        'Qual alternativa representa corretamente uma vantagem do desenvolvimento',
+        30,
+        11
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        225,
+        'Necessidade de criar aplicativos separados para cada sistema',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (225, 'Uso exclusivo em computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        225,
+        'Desenvolvimento mais rápido para diferentes plataformas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        225,
+        'Eliminação total do uso de interfaces gráficas',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (226, 'O que significa o termo NoSQL?', 10, 14);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        226,
+        'Banco de dados sem estrutura fixa relacional',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (226, 'Linguagem de programação para web', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (226, 'Sistema operacional para servidores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (226, 'Ferramenta de design gráfico', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        227,
+        'Qual banco de dados é baseado em documentos?',
+        10,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (227, 'Redis', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (227, 'MongoDB', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (227, 'Neo4j', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (227, 'Cassandra', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        228,
+        'O Redis é um exemplo de banco de dados do tipo:',
+        10,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (228, 'Documento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (228, 'Coluna', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (228, 'Grafo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (228, 'Chave-valor', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        229,
+        'Qual banco de dados é especializado em grafos?',
+        10,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (229, 'Bigtable', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (229, 'CouchDB', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (229, 'Neo4j', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (229, 'MongoDB', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (230, 'CRUD representa operações de:', 10, 14);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        230,
+        'Criação, leitura, atualização e exclusão de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (230, 'Compactação de arquivos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (230, 'Desenvolvimento de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (230, 'Criação de redes locais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        231,
+        'Qual é uma das principais motivações do uso de bancos NoSQL?',
+        20,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (231, 'Trabalhar apenas com tabelas fixas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        231,
+        'Melhorar escalabilidade e flexibilidade',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (231, 'Eliminar armazenamento de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (231, 'Substituir linguagens de programação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        232,
+        'Em MongoDB, coleções são equivalentes a:',
+        20,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (232, 'Linhas de uma tabela', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (232, 'Campos numéricos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (232, 'Tabelas em bancos relacionais', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (232, 'Índices automáticos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        233,
+        'O modelo Embedded em MongoDB consiste em:',
+        20,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        233,
+        'Armazenar documentos dentro de outros documentos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (233, 'Criar tabelas relacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        233,
+        'Separar todos os dados em servidores diferentes',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (233, 'Utilizar apenas números inteiros', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        234,
+        'Qual recurso é utilizado para melhorar o desempenho de buscas em bancos de',
+        20,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (234, 'Agregação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (234, 'Índices', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (234, 'Transações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (234, 'Map-Reduce', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        235,
+        'O Map-Reduce é utilizado principalmente para:',
+        20,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (235, 'Criação de interfaces gráficas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (235, 'Desenvolvimento de aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        235,
+        'Processamento de grandes volumes de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (235, 'Exclusão automática de documentos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        236,
+        'Bancos de dados orientados a colunas são mais adequados para:',
+        30,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        236,
+        'Consultas analíticas em grandes volumes de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (236, 'Desenvolvimento de jogos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (236, 'Edição de imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (236, 'Criação de páginas HTML', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        237,
+        'O conceito de Big Data está relacionado com:',
+        30,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        237,
+        'Grandes volumes de dados processados rapidamente',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (237, 'Pequenos arquivos locais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (237, 'Criação de interfaces simples', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (237, 'Desenvolvimento de hardware portátil', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        238,
+        'Transações em bancos NoSQL têm como objetivo:',
+        30,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        238,
+        'Garantir consistência nas operações de dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (238, 'Criar novas linguagens de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        238,
+        'Melhorar apenas o design das aplicações',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (238, 'Eliminar índices automaticamente', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        239,
+        'Qual alternativa representa corretamente um banco de dados chave-valor?',
+        30,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (239, 'MongoDB', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (239, 'Neo4j', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (239, 'Redis', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (239, 'Cassandra', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        240,
+        'Ciência de Dados é uma área voltada para:',
+        30,
+        14
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        240,
+        'Análise e interpretação de dados para gerar conhecimento',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (240, 'Desenvolvimento exclusivo de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (240, 'Criação de sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (240, 'Montagem de redes físicas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (241, 'O que significa a sigla IP?', 10, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (241, 'Internal Program', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (241, 'Internet Program', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (241, 'Internet Protocol', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (241, 'Integrated Process', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        242,
+        'Qual protocolo é utilizado para navegação na web?',
+        10,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (242, 'FTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (242, 'SSH', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (242, 'DNS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (242, 'HTTP', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        243,
+        'Qual ferramenta é usada para testar conectividade entre computadores?',
+        10,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (243, 'arp', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (243, 'route', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (243, 'ping', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (243, 'netstat', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (244, 'O DNS é responsável por:', 10, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        244,
+        'Traduzir nomes de domínio em endereços IP',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (244, 'Armazenar arquivos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (244, 'Criar páginas web', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (244, 'Configurar placas de vídeo', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        245,
+        'Qual protocolo é utilizado para acesso remoto seguro?',
+        10,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (245, 'FTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (245, 'HTTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (245, 'DNS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (245, 'SSH', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        246,
+        'O modelo cliente/servidor funciona quando:',
+        20,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        246,
+        'Dois computadores compartilham hardware físico',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (246, 'Apenas servidores trocam informações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        246,
+        'Um dispositivo solicita serviços e outro responde',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        246,
+        'Não existe comunicação entre dispositivos',
+        0
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (247, 'O protocolo TCP é conhecido por:', 20, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (247, 'Trabalhar apenas com imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (247, 'Garantir entrega confiável de dados', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (247, 'Não utilizar portas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (247, 'Substituir o protocolo IP', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        248,
+        'Qual ferramenta exibe configurações de rede no Windows?',
+        20,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (248, 'ipconfig', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (248, 'pathping', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (248, 'nslookup', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (248, 'getmac', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (249, 'O NAT é utilizado para:', 20, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (249, 'Criar bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (249, 'Configurar navegadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (249, 'Desenvolver aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (249, 'Traduzir endereços de rede', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (250, 'Cookies em HTTP servem para:', 20, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (250, 'Melhorar sinais de internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (250, 'Criar páginas HTML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        250,
+        'Armazenar informações de sessão do usuário',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (250, 'Substituir servidores web', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        251,
+        'O HTTPS utiliza quais protocolos para segurança?',
+        30,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (251, 'FTP e DNS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (251, 'TCP e UDP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (251, 'NAT e ARP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (251, 'SSL e TLS', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        252,
+        'O código de status HTTP 404 indica:',
+        30,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (252, 'Sucesso na requisição', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (252, 'Recurso não encontrado', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (252, 'Erro interno do servidor', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (252, 'Acesso autorizado', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        253,
+        'O protocolo UDP se diferencia do TCP porque:',
+        30,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (253, 'Utiliza criptografia obrigatória', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (253, 'Não trabalha com portas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        253,
+        'Não garante entrega confiável dos dados',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (253, 'Funciona apenas na web', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (254, 'O Wireshark é utilizado para:', 30, 10);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (254, 'Criar páginas HTML', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (254, 'Desenvolver bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (254, 'Configurar impressoras', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (254, 'Capturar e analisar tráfego de rede', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        255,
+        'O conceito de Stateless no HTTP significa que:',
+        30,
+        10
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (255, 'O navegador não usa cookies', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        255,
+        'O protocolo não armazena estado entre requisições',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        255,
+        'O servidor sempre salva informações do usuário',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (255, 'O HTTP não utiliza cabeçalhos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (256, 'O que é uma API REST?', 10, 16);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (256, 'Sistema operacional mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        256,
+        'Interface para comunicação entre sistemas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (256, 'Banco de dados relacional', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (256, 'Linguagem de programação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (257, 'O Bluetooth é utilizado para:', 10, 16);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (257, 'Comunicação sem fio entre dispositivos', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (257, 'Desenvolver bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (257, 'Editar imagens digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (257, 'Criar páginas web', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        258,
+        'Qual recurso do smartphone permite tirar fotos em aplicativos?',
+        10,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (258, 'GPS', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (258, 'Bluetooth', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (258, 'Câmera', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (258, 'Sensor de proximidade', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        259,
+        'O GPS em aplicativos mobile é utilizado para:',
+        10,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (259, 'Controle de memória RAM', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (259, 'Criação de tabelas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (259, 'Edição de textos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (259, 'Localização e mapas', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        260,
+        'O SMS em aplicativos mobile está relacionado com:',
+        10,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (260, 'Redes sociais apenas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (260, 'Banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (260, 'Impressão de documentos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (260, 'Mensagens de texto', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        261,
+        'O consumo de APIs REST permite que aplicativos:',
+        20,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (261, 'Funcionem apenas offline', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (261, 'Eliminem o uso da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        261,
+        'Troquem informações com servidores e sistemas externos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (261, 'Substituam bancos de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        262,
+        'A comunicação TCP full-duplex permite:',
+        20,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (262, 'Apenas envio de mensagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        262,
+        'Comunicação sem internet obrigatoriamente',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        262,
+        'Troca de dados nos dois sentidos simultaneamente',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (262, 'Apenas recebimento de mensagens', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        263,
+        'A autenticação em aplicativos mobile serve para:',
+        20,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (263, 'Criar animações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (263, 'Verificar a identidade do usuário', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (263, 'Editar imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (263, 'Configurar sensores', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        264,
+        'Sensores em smartphones podem ser usados para:',
+        20,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (264, 'Melhorar impressões gráficas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (264, 'Criar bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        264,
+        'Detectar movimento e orientação do aparelho',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (264, 'Excluir aplicativos automaticamente', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        265,
+        'O empacotamento de aplicativos é o processo de:',
+        20,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (265, 'Criar bancos de dados relacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (265, 'Configurar roteadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (265, 'Desenvolver hardware mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        265,
+        'Preparar o aplicativo para instalação e distribuição',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        266,
+        'A integração via Bluetooth com dispositivos embarcados permite:',
+        30,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        266,
+        'Comunicação entre aplicativos e equipamentos eletrônicos externos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (266, 'Substituição de APIs REST', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (266, 'Criação de redes sociais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (266, 'Exclusão automática de arquivos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        267,
+        'APIs REST normalmente utilizam qual protocolo para comunicação?',
+        30,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (267, 'SMTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (267, 'FTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (267, 'SSH', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (267, 'HTTP', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        268,
+        'O uso de autenticação em aplicativos mobile ajuda a:',
+        30,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (268, 'Desenvolver placas eletrônicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (268, 'Criar imagens vetoriais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        268,
+        'Melhorar a segurança de acesso aos sistemas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (268, 'Configurar impressoras', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        269,
+        'A utilização de mapas em aplicativos geralmente depende de:',
+        30,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        269,
+        'Serviços de geolocalização e APIs de mapas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (269, 'Planilhas eletrônicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (269, 'Sistemas de impressão', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (269, 'Cabos HDMI', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        270,
+        'O recurso de orientação em smartphones utiliza principalmente:',
+        30,
+        16
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (270, 'Monitores CRT', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        270,
+        'Sensores como acelerômetro e giroscópio',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (270, 'Impressoras térmicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (270, 'Fontes ATX', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        271,
+        'O que significa SPA em desenvolvimento web?',
+        10,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (271, 'Single Page Application', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (271, 'Simple Program Access', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (271, 'System Page Application', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (271, 'Secure Page Area', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        272,
+        'Em aplicações SPA, o roteamento é responsável por:',
+        10,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (272, 'Criação de banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (272, 'Configuração de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (272, 'Navegação entre páginas e componentes', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (272, 'Desenvolvimento de drivers', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        273,
+        'O que são componentes em frameworks web?',
+        10,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (273, 'Arquivos de áudio', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (273, 'Sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (273, 'Protocolos de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (273, 'Partes reutilizáveis da interface', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        274,
+        'Qual recurso é usado para armazenar informações do usuário no navegador?',
+        10,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (274, 'Cookies', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (274, 'Impressoras', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (274, 'Compiladores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (274, 'Switches', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (275, 'APIs REST são utilizadas para:', 10, 17);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (275, 'Criar imagens digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        275,
+        'Comunicação entre aplicações e serviços',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (275, 'Configurar redes locais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (275, 'Desenvolver hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        276,
+        'O gerenciamento de estados em aplicações SPA serve para:',
+        20,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (276, 'Criar bancos de dados relacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        276,
+        'Controlar dados e comportamento da interface',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (276, 'Configurar roteadores físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (276, 'Editar arquivos multimídia', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (277, 'O que é renderização de HTML?', 20, 17);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        277,
+        'Processo de criar redes de computadores',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (277, 'Processo de configurar servidores FTP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        277,
+        'Processo de exibir conteúdo visual no navegador',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (277, 'Processo de montar hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        278,
+        'Validação de formulários é utilizada para:',
+        20,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        278,
+        'Garantir que os dados preenchidos estejam corretos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (278, 'Criar sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (278, 'Melhorar velocidade da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (278, 'Configurar impressoras', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (279, 'Um CMS é um sistema voltado para:', 20, 17);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (279, 'Controle de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (279, 'Desenvolvimento de drivers', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (279, 'Criação de placas eletrônicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (279, 'Gerenciamento de conteúdo digital', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (280, 'Sessões de usuário permitem:', 20, 17);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (280, 'Excluir automaticamente cookies', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (280, 'Criar bancos de dados NoSQL', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (280, 'Configurar sensores físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        280,
+        'Manter informações temporárias do usuário durante o uso do sistema',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        281,
+        'O Hash de autenticação é utilizado para:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        281,
+        'Verificar identidade e segurança de acesso',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (281, 'Editar componentes gráficos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (281, 'Criar tabelas relacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (281, 'Melhorar desempenho de hardware', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        282,
+        'A autenticação em aplicações web serve para:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (282, 'Criar animações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (282, 'Confirmar a identidade do usuário', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (282, 'Desenvolver bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (282, 'Configurar dispositivos físicos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        283,
+        'A autorização em sistemas web define:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (283, 'Velocidade da conexão de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (283, 'Configuração de periféricos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        283,
+        'Quais recursos cada usuário pode acessar',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (283, 'Tipos de memória RAM', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        284,
+        'Testes automatizados têm como principal objetivo:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (284, 'Criar interfaces gráficas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (284, 'Configurar servidores físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (284, 'Montar redes locais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        284,
+        'Verificar automaticamente o funcionamento do sistema',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        285,
+        'O acesso a dados via APIs REST geralmente utiliza:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (285, 'Requisições HTTP', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (285, 'Cabos HDMI', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (285, 'Protocolos Bluetooth apenas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (285, 'Linguagem Assembly', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        286,
+        'Recursos de orientação em smartphones utilizam principalmente:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (286, 'Impressoras térmicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (286, 'Cabos de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        286,
+        'Sensores como acelerômetro e giroscópio',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (286, 'Processadores gráficos externos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        287,
+        'O acesso a mapas em aplicativos geralmente depende de:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (287, 'Serviços de geolocalização', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (287, 'Planilhas eletrônicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (287, 'Editores de imagem', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (287, 'Compiladores de código', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        288,
+        'A distribuição de aplicativos mobile normalmente ocorre por meio de:',
+        30,
+        17
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (288, 'Impressoras de rede', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (288, 'Sistemas embarcados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (288, 'Lojas de aplicativos digitais', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (288, 'Linguagens de marcação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (289, 'O que é linguagem formal?', 10, 23);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (289, 'Linguagem usada apenas em jogos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        289,
+        'Linguagem usada em situações profissionais e acadêmicas',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (289, 'Linguagem com gírias e abreviações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (289, 'Linguagem sem regras gramaticais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (290, 'O que é um currículo?', 10, 23);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (290, 'Programa de edição de imagens', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (290, 'Banco de dados empresarial', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        290,
+        'Documento com experiências e qualificações profissionais',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (290, 'Sistema operacional', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        291,
+        'Qual documento é usado para comunicação interna em empresas?',
+        10,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (291, 'Receita médica', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (291, 'Panfleto publicitário', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (291, 'Cartaz informativo', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (291, 'Memorando', 1);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (292, 'O que significa coesão textual?', 10, 23);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (292, 'Ligação adequada entre partes do texto', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (292, 'Quantidade de páginas de um texto', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (292, 'Uso exclusivo de palavras técnicas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (292, 'Organização de imagens em slides', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (293, 'O que é um relatório técnico?', 10, 23);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (293, 'Texto literário de ficção', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        293,
+        'Documento que apresenta informações técnicas de forma organizada',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (293, 'Página inicial de um site', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (293, 'Sistema de armazenamento em nuvem', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        294,
+        'O objetivo da leitura instrumental é:',
+        20,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (294, 'Desenvolver jogos digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (294, 'Configurar computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        294,
+        'Identificar informações importantes em textos técnicos',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (294, 'Criar bancos de dados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        295,
+        'O que são indicadores linguísticos?',
+        20,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (295, 'Equipamentos de informática', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        295,
+        'Elementos relacionados à estrutura da língua',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (295, 'Sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (295, 'Protocolos de rede', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        296,
+        'Qual é a função das palavras-chave em um texto técnico?',
+        20,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        296,
+        'Destacar os temas principais do conteúdo',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (296, 'Decorar o texto visualmente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (296, 'Aumentar o tamanho do documento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (296, 'Substituir referências bibliográficas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (297, 'O que é coerência textual?', 20, 23);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (297, 'Uso obrigatório de gráficos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (297, 'Quantidade de linhas do documento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (297, 'Organização de imagens digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        297,
+        'Relação lógica e compreensível entre as ideias do texto',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        298,
+        'A carta-currículo tem como finalidade:',
+        20,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (298, 'Criar contratos digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (298, 'Elaborar planilhas financeiras', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        298,
+        'Apresentar o candidato e demonstrar interesse pela vaga',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (298, 'Configurar sistemas operacionais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        299,
+        'O que caracteriza um texto técnico-científico?',
+        30,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        299,
+        'Uso de linguagem objetiva, clara e especializada',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (299, 'Uso predominante de linguagem informal', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        299,
+        'Presença obrigatória de ilustrações artísticas',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (299, 'Estrutura baseada apenas em diálogos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        300,
+        'As referências bibliográficas servem para:',
+        30,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (300, 'Criar efeitos visuais em apresentações', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (300, 'Configurar aplicativos mobile', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        300,
+        'Identificar as fontes utilizadas em um trabalho',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (300, 'Desenvolver interfaces gráficas', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        301,
+        'O glossário técnico é utilizado para:',
+        30,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        301,
+        'Explicar termos específicos de determinada área',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (301, 'Organizar imagens digitais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (301, 'Configurar redes de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (301, 'Criar bancos de dados relacionais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        302,
+        'Na apresentação oral técnico-científica, o planejamento é importante para:',
+        30,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (302, 'Melhorar velocidade da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        302,
+        'Organizar conteúdo, tempo e recursos da apresentação',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (302, 'Desenvolver sistemas embarcados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (302, 'Configurar servidores web', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        303,
+        'A análise da confiabilidade das fontes busca verificar:',
+        30,
+        23
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (303, 'O design visual do documento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (303, 'O tamanho do arquivo digital', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        303,
+        'A velocidade de processamento do computador',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        303,
+        'Se as informações são seguras, corretas e confiáveis',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        304,
+        'Qual é o objetivo do teste de software?',
+        10,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (304, 'Criar componentes físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        304,
+        'Melhorar a qualidade e identificar falhas no sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (304, 'Desenvolver hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (304, 'Configurar redes locais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        305,
+        'O que significa legibilidade no código?',
+        10,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (305, 'Velocidade de processamento', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (305, 'Capacidade de armazenar arquivos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (305, 'Facilidade de entender o código-fonte', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (305, 'Uso obrigatório de gráficos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (306, 'O que é reutilização de código?', 10, 24);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (306, 'Exclusão automática de funções', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (306, 'Criação de bancos de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        306,
+        'Desenvolvimento de sistemas operacionais',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        306,
+        'Aproveitamento de partes do código em outros projetos',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        307,
+        'A indentação no código serve para:',
+        10,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (307, 'Organizar visualmente o código-fonte', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (307, 'Melhorar conexão com internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (307, 'Configurar servidores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (307, 'Criar tabelas relacionais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        308,
+        'O que é UX (Experiência do Usuário)?',
+        10,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (308, 'Tipo de linguagem de programação', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        308,
+        'Qualidade da interação do usuário com o sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (308, 'Modelo de banco de dados', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (308, 'Sistema de autenticação', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (309, 'O que são testes funcionais?', 20, 24);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (309, 'Testes de velocidade da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        309,
+        'Testes que verificam se o sistema funciona conforme esperado',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (309, 'Testes de hardware físico', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (309, 'Testes de impressão gráfica', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        310,
+        'Testes automatizados são executados:',
+        20,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (310, 'Apenas manualmente', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (310, 'Somente em servidores físicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        310,
+        'Automaticamente por ferramentas e scripts',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (310, 'Apenas em aplicativos mobile', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (311, 'O teste de usabilidade avalia:', 20, 24);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        311,
+        'Facilidade de uso e interação do sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (311, 'Velocidade da memória RAM', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (311, 'Estrutura de redes de computadores', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (311, 'Capacidade de impressão', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        312,
+        'O desenvolvimento orientado por testes (TDD) consiste em:',
+        20,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (312, 'Desenvolver sem realizar testes', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (312, 'Utilizar apenas testes manuais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (312, 'Criar bancos de dados primeiro', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        312,
+        'Criar testes antes do desenvolvimento do código',
+        1
+    );
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        313,
+        'A programação em par acontece quando:',
+        20,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        313,
+        'Dois computadores compartilham hardware',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        313,
+        'Dois programadores trabalham juntos no mesmo código',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (313, 'Dois servidores utilizam o mesmo IP', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (313, 'Dois bancos de dados são conectados', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (314, 'O objetivo da refatoração é:', 30, 24);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (314, 'Excluir funcionalidades do sistema', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        314,
+        'Melhorar a estrutura do código sem alterar seu funcionamento',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (314, 'Criar bancos de dados NoSQL', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (314, 'Alterar o hardware do computador', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (315, 'Testes de integração verificam:', 30, 24);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (315, 'Velocidade da internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (315, 'Apenas o design das telas', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        315,
+        'A comunicação entre diferentes partes do sistema',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (315, 'Configuração de periféricos', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        316,
+        'Testes não funcionais analisam aspectos como:',
+        30,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (316, 'Desempenho, segurança e confiabilidade', 1);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (316, 'Apenas aparência visual', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (316, 'Estrutura de textos técnicos', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (316, 'Organização de arquivos locais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        317,
+        'O modelo CMMI está relacionado com:',
+        30,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        317,
+        'Qualidade e maturidade de processos de software',
+        1
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (317, 'Desenvolvimento de hardware', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (317, 'Criação de sistemas operacionais', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (317, 'Configuração de redes sociais', 0);
+
+INSERT INTO
+    questao (id, enunciado, pontuacao, id_disciplina)
+VALUES
+    (
+        318,
+        'A validação em testes de software busca garantir que:',
+        30,
+        24
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (318, 'O software funcione sem internet', 0);
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        318,
+        'O sistema utilize apenas banco de dados relacional',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        318,
+        'O código tenha apenas funções matemáticas',
+        0
+    );
+
+INSERT INTO
+    alternativa (id_questao, perguntas, correta)
+VALUES
+    (
+        318,
+        'O produto atende às necessidades e requisitos definidos',
+        1
+    );
+
+-- Stored Procedures --
+DELIMITER / / -- =========================================================
 -- PROCEDURES
 -- =========================================================
+CREATE PROCEDURE AtualizarQuiz(IN p_id INT, IN p_pontuacao INT) BEGIN
+UPDATE
+    quiz
+SET
+    pontuacao = p_pontuacao
+WHERE
+    id = p_id;
 
-CREATE PROCEDURE AtualizarQuiz(
-    IN p_id INT,
-    IN p_pontuacao INT
-)
-BEGIN
-    UPDATE quiz
-    SET pontuacao = p_pontuacao
-    WHERE id = p_id;
-END //
+END / / CREATE PROCEDURE DeleteQuiz(IN p_id INT) BEGIN
+DELETE FROM
+    quiz
+WHERE
+    id = p_id;
 
-CREATE PROCEDURE DeleteQuiz(IN p_id INT)
-BEGIN
-    DELETE FROM quiz
-    WHERE id = p_id;
-END //
+END / / CREATE PROCEDURE SelectQuiz(IN p_id INT) BEGIN
+SELECT
+    *
+FROM
+    quiz
+WHERE
+    id = p_id;
 
-CREATE PROCEDURE SelectQuiz(IN p_id INT)
-BEGIN
-    SELECT *
-    FROM quiz
-    WHERE id = p_id;
-END //
+END / / CREATE PROCEDURE Escolher_Disciplina_por_Curso(IN p_id_curso INT) BEGIN
+SELECT
+    id,
+    nome,
+    sigla
+FROM
+    disciplina
+WHERE
+    id_curso = p_id_curso;
 
-CREATE PROCEDURE Escolher_Disciplina_por_Curso(
-    IN p_id_curso INT
-)
-BEGIN
-    SELECT id, nome, sigla
-    FROM disciplina
-    WHERE id_curso = p_id_curso;
-END //
+END / / CREATE PROCEDURE Consultar_disciplina_por_modulo (IN p_id_curso INT, IN p_modulo INT) BEGIN
+SELECT
+    nome,
+    sigla
+FROM
+    disciplina
+WHERE
+    id_curso = p_id_curso
+    and modulo = p_modulo;
 
-CREATE PROCEDURE Consultar_disciplina_por_modulo (
-	IN p_id_curso INT, 
-    IN p_modulo INT
-)
-BEGIN
-	SELECT nome, sigla
-    FROM disciplina
-    WHERE id_curso = p_id_curso and
-    modulo = p_modulo;
-END //
+END / / CREATE PROCEDURE Escolher_uma_Alternativa_Questao(IN p_id_questao INT) BEGIN
+SELECT
+    id,
+    enunciado,
+    correta
+FROM
+    alternativa
+WHERE
+    id_questao = p_id_questao;
 
-CREATE PROCEDURE Escolher_uma_Alternativa_Questao(
-    IN p_id_questao INT
-)
-BEGIN
-    SELECT id, enunciado, correta
-    FROM alternativa
-    WHERE id_questao = p_id_questao;
-END //
+END / / CREATE PROCEDURE Escolher_cinco_questoes_Aleatoria_Disciplina(IN p_id_disciplina INT) BEGIN
+SELECT
+    id,
+    enunciado,
+    pontuacao
+FROM
+    questao
+WHERE
+    id_disciplina = p_id_disciplina
+ORDER BY
+    RAND()
+LIMIT
+    5;
 
-CREATE PROCEDURE Escolher_cinco_questoes_Aleatoria_Disciplina(
-    IN p_id_disciplina INT
-)
-BEGIN
-    SELECT id, enunciado, pontuacao
-    FROM questao
-    WHERE id_disciplina = p_id_disciplina
-    ORDER BY RAND()
-    LIMIT 5;
-END //
+END / / CREATE PROCEDURE Escolher_Quizes_de_Usuario(IN p_id_usuario INT) BEGIN
+SELECT
+    *
+FROM
+    quiz
+WHERE
+    id_usuario = p_id_usuario
+ORDER BY
+    data DESC;
 
-CREATE PROCEDURE Escolher_Quizes_de_Usuario(
-    IN p_id_usuario INT
-)
-BEGIN
-    SELECT *
-    FROM quiz
-    WHERE id_usuario = p_id_usuario
-    ORDER BY data DESC;
-END //
+END / / CREATE PROCEDURE escolher_Usuario_ordenados_por_pontos() BEGIN
+SELECT
+    id,
+    nome,
+    pontuacao
+FROM
+    usuario
+ORDER BY
+    pontuacao DESC;
 
-CREATE PROCEDURE escolher_Usuario_ordenados_por_pontos()
-BEGIN
-    SELECT id, nome, pontuacao
-    FROM usuario
-    ORDER BY pontuacao DESC;
-END //
-
-CREATE PROCEDURE Verificar_Se_Login_Existe_e_Senha_Bate(
+END / / CREATE PROCEDURE Verificar_Se_Login_Existe_e_Senha_Bate(
     IN p_email VARCHAR(100),
     IN p_senha VARCHAR(255)
-)
-BEGIN
-    SELECT id, nome, email
-    FROM usuario
-    WHERE email = p_email
+) BEGIN
+SELECT
+    id,
+    nome,
+    email
+FROM
+    usuario
+WHERE
+    email = p_email
     AND senha = p_senha;
-END //
 
-CREATE PROCEDURE Verificar_Login_Existente(
-    IN p_email VARCHAR(100)
-)
-BEGIN
-    SELECT COUNT(*) AS existe
-    FROM usuario
-    WHERE email = p_email;
-END //
+END / / CREATE PROCEDURE Verificar_Login_Existente(IN p_email VARCHAR(100)) BEGIN
+SELECT
+    COUNT(*) AS existe
+FROM
+    usuario
+WHERE
+    email = p_email;
 
-CREATE PROCEDURE AtualizarPontuacaoUsuario(
+END / / CREATE PROCEDURE AtualizarPontuacaoUsuario(
     IN p_id_usuario INT,
     IN p_pontos_novos INT
-)
-BEGIN
-    UPDATE usuario
-    SET pontuacao = pontuacao + p_pontos_novos
-    WHERE id = p_id_usuario;
-END //
+) BEGIN
+UPDATE
+    usuario
+SET
+    pontuacao = pontuacao + p_pontos_novos
+WHERE
+    id = p_id_usuario;
 
-CREATE PROCEDURE RankingUsuarios()
-BEGIN
-    SELECT nome, pontuacao
-    FROM usuario
-    ORDER BY pontuacao DESC
-    LIMIT 10;
-END //
+END / / CREATE PROCEDURE RankingUsuarios() BEGIN
+SELECT
+    nome,
+    pontuacao
+FROM
+    usuario
+ORDER BY
+    pontuacao DESC
+LIMIT
+    10;
 
-CREATE PROCEDURE RankingUsuariosComInsignia()
-BEGIN
-    SELECT
-        nome,
-        pontuacao,
-        CASE
-            WHEN pontuacao >= 1000 THEN 'Diamante'
-            WHEN pontuacao >= 500 THEN 'Ouro'
-            WHEN pontuacao >= 200 THEN 'Prata'
-            ELSE 'Bronze'
-        END AS insignia
-    FROM usuario
-    ORDER BY pontuacao DESC;
-END //
+END / / CREATE PROCEDURE RankingUsuariosComInsignia() BEGIN
+SELECT
+    nome,
+    pontuacao,
+    CASE
+        WHEN pontuacao >= 1000 THEN 'Diamante'
+        WHEN pontuacao >= 500 THEN 'Ouro'
+        WHEN pontuacao >= 200 THEN 'Prata'
+        ELSE 'Bronze'
+    END AS insignia
+FROM
+    usuario
+ORDER BY
+    pontuacao DESC;
 
-DELIMITER ;
+END / / DELIMITER;
