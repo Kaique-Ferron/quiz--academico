@@ -1826,3 +1826,5 @@ FROM
 ORDER BY
     pontuacao DESC;
 END / / DELIMITER / /
+
+--comentando
