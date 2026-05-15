@@ -49,34 +49,6 @@ if (googleBtn) {
 }
 
 
-// ======================
-// GITHUB
-// ======================
 
-const githubBtn = document.getElementById("githubLogin");
 
-if (githubBtn) {
 
-  githubBtn.addEventListener("click", async () => {
-
-    try {
-
-      const result = await signInWithPopup(auth, githubProvider);
-
-      console.log(result.user);
-
-      alert("Login GitHub realizado!");
-
-      window.location.href = "../views/home.html";
-
-    } catch (error) {
-
-      console.log(error);
-
-      alert("Erro no login GitHub");
-
-    }
-
-  });
-
-}
