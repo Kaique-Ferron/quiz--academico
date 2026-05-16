@@ -1,54 +1,191 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <title>Quiz - Cadastro</title>
+
   <link rel="stylesheet" href="/css/cadastro.css">
 </head>
+
 <body>
 
-  
-<div class="card">
-  <h2>SIGN UP</h2>
+  <div class="card">
 
-  <form>
-    <div class="input-box">
-      <input id="nome" type="text" placeholder="Nome completo">
-    </div>
+    <h2>SIGN UP</h2>
 
-    <div class="input-box">
-      <input id="email" type="email" placeholder="Email">
-    </div>
+    <form>
 
-    <div class="input-box">
-      <input id="senha" type="password" placeholder="Senha">
-    </div>
+      <!-- NOME -->
+      <div class="input-box">
+        <input
+          id="nome"
+          type="text"
+          placeholder="Nome completo">
+      </div>
 
-    <div class="input-box">
-      <input id="confirmarSenha" type="password" placeholder="Confirmar senha">
-    </div>
+      <!-- EMAIL -->
+      <div class="input-box">
+        <input
+          id="email"
+          type="email"
+          placeholder="Email">
+      </div>
 
-    <button type="button" id="cadastroBtn" class="btn">Cadastrar</button>
+      <!-- SENHA -->
+      <div class="input-box">
+        <input
+          id="senha"
+          type="password"
+          placeholder="Senha">
+      </div>
 
-    <p class="divider">ou continue com</p>
+      <!-- CONFIRMAR SENHA -->
+      <div class="input-box">
+        <input
+          id="confirmarSenha"
+          type="password"
+          placeholder="Confirmar senha">
+      </div>
 
-    <div class="social">
-      <button type="button" class="btn" id="botaoVoltarLogin">← Voltar ao login</button>
-    </div>
-  </form>
-</div>
+      <!-- BOTÃO CADASTRO -->
+      <button
+        type="button"
+        id="cadastroBtn"
+        class="btn"
+        onclick="cadastrar()">
 
-<script type="module" src="./../services/auth.js"></script>
+        Cadastrar
+
+      </button>
+
+      <p class="divider">
+        ou continue com
+      </p>
+
+      <!-- VOLTAR LOGIN -->
+      <div class="social">
+
+        <button
+          type="button"
+          class="btn"
+          id="botaoVoltarLogin">
+
+          ← Voltar ao login
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <script type="module" src="./../services/auth.js"></script>
 
   <script>
+
+    // BOTÃO LOGIN
     const botao =
-    document.getElementById("botaoVoltarLogin");
+      document.getElementById("botaoVoltarLogin");
 
     botao.addEventListener("click", () => {
-        window.location.href = "/views/login.html"
+
+      window.location.href =
+        "/views/login.html";
+
     });
 
-</script>
+
+    // FUNÇÃO CADASTRO
+    async function cadastrar() {
+
+      const nome =
+        document.getElementById('nome').value;
+
+      const email =
+        document.getElementById('email').value;
+
+      const senha =
+        document.getElementById('senha').value;
+
+      const confirmar =
+        document.getElementById('confirmarSenha').value;
+
+
+      // CAMPOS VAZIOS
+      if (!nome || !email || !senha || !confirmar) {
+
+        alert("Preencha todos os campos!");
+
+        return;
+      }
+
+
+      // SENHAS DIFERENTES
+      if (senha !== confirmar) {
+
+        alert("As senhas não coincidem!");
+
+        return;
+      }
+
+
+      try {
+
+        const resposta = await fetch('/cadastro', {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            nome,
+            email,
+            senha
+          })
+
+        });
+
+        const dados = await resposta.json();
+
+
+        // CADASTRO CORRETO
+        if (dados.sucesso) {
+
+          alert("Usuário cadastrado com sucesso!");
+
+          window.location.href =
+            '/views/login.html';
+
+        }
+
+        // CADASTRO ERRADO
+        else {
+
+          alert("Usuário não cadastrado!");
+
+        }
+
+      }
+
+      // ERRO SERVIDOR
+      catch (erro) {
+
+        console.log(erro);
+
+        alert("Erro ao conectar com o servidor!");
+
+      }
+
+    }
+
+  </script>
 
 </body>
+
 </html>
+
