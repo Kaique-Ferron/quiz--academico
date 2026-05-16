@@ -1,16 +1,21 @@
+l
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Recuperar Senha</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./../css/redefinir.css">
 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./../css/redefinir.css">
 </head>
+
 <body>
 
   <div class="card">
@@ -22,31 +27,122 @@
       para redefinir sua senha.
     </p>
 
+    <!-- INPUT EMAIL -->
     <div class="input-box">
-      <input type="email" placeholder="Digite seu email">
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Digite seu email">
+
     </div>
 
-    <button class="btn">
+    <!-- BOTÃO ENVIAR -->
+    <button
+      class="btn"
+      onclick="redefinir()">
+
       Enviar e-mail
+
     </button>
 
-    <div class="divider">ou</div>
+    <div class="divider">
+      ou
+    </div>
 
-    <button id="botaoVoltarLogin" class="back-btn">
+    <!-- VOLTAR LOGIN -->
+    <button
+      id="botaoVoltarLogin"
+      class="back-btn">
+
       ← Voltar para o login
+
     </button>
 
   </div>
 
+
   <script>
+
+    // BOTÃO VOLTAR LOGIN
     const botao =
-    document.getElementById("botaoVoltarLogin");
+      document.getElementById("botaoVoltarLogin");
 
     botao.addEventListener("click", () => {
-        window.location.href = "/views/login.html"
+
+      window.location.href =
+        "/views/login.html";
+
     });
 
-</script>
+
+    // FUNÇÃO RECUPERAR SENHA
+    async function redefinir() {
+
+      const email =
+        document.getElementById('email').value;
+
+
+      // CAMPO VAZIO
+      if (!email) {
+
+        alert("Digite seu email!");
+
+        return;
+      }
+
+      try {
+
+        const resposta = await fetch('/recuperar-senha', {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            email
+          })
+
+        });
+
+        const dados = await resposta.json();
+
+
+        // EMAIL ENVIADO
+        if (dados.sucesso) {
+
+          alert("📧 E-mail de recuperação enviado com sucesso!");
+
+          window.location.href =
+            '/views/login.html';
+
+        }
+
+        // ERRO AO ENVIAR
+        else {
+
+          alert("Erro ao enviar o e-mail!");
+
+        }
+
+      }
+
+      // ERRO SERVIDOR
+      catch (erro) {
+
+        console.log(erro);
+
+        alert("Erro ao conectar com o servidor!");
+
+      }
+
+    }
+
+  </script>
 
 </body>
+
 </html>
+

@@ -1,16 +1,22 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recuperar Senha</title>
+
+  <title>Redefinir Senha</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="./../css/redefinir.css">
 
 </head>
+
 <body>
 
   <div class="card">
@@ -18,38 +24,148 @@
     <h1>RECUPERAR SENHA</h1>
 
     <p>
-        Insira a senha nova nos campos abaixo para trocá-lá.
+      Insira a senha nova nos campos abaixo
+      para trocá-la.
     </p>
 
+    <!-- NOVA SENHA -->
     <div class="input-box">
-      <input type="password" placeholder="Digite sua nova senha">
+
+      <input
+        type="password"
+        id="senha"
+        placeholder="Digite sua nova senha">
+
     </div>
 
+    <!-- CONFIRMAR SENHA -->
     <div class="input-box">
-      <input type="password" placeholder="Confirme sua nova senha">
+
+      <input
+        type="password"
+        id="confirmar"
+        placeholder="Confirme sua nova senha">
+
     </div>
 
-    <button class="btn">
+    <!-- BOTÃO -->
+    <button
+      class="btn"
+      onclick="trocarSenha()">
+
       Redefinir senha
+
     </button>
 
-    <div class="divider">ou</div>
+    <div class="divider">
+      ou
+    </div>
 
-    <button id="botaoVoltarLogin" class="back-btn">
+    <!-- VOLTAR LOGIN -->
+    <button
+      id="botaoVoltarLogin"
+      class="back-btn">
+
       ← Voltar para o login
+
     </button>
 
   </div>
 
+
   <script>
+
+    // BOTÃO VOLTAR LOGIN
     const botao =
-    document.getElementById("botaoVoltarLogin");
+      document.getElementById("botaoVoltarLogin");
 
     botao.addEventListener("click", () => {
-        window.location.href = "/views/login.html"
+
+      window.location.href =
+        "/views/login.html";
+
     });
 
-</script>
+
+    // FUNÇÃO TROCAR SENHA
+    async function trocarSenha() {
+
+      const senha =
+        document.getElementById('senha').value;
+
+      const confirmar =
+        document.getElementById('confirmar').value;
+
+
+      // CAMPOS VAZIOS
+      if (!senha || !confirmar) {
+
+        alert("Preencha todos os campos!");
+
+        return;
+      }
+
+
+      // SENHAS DIFERENTES
+      if (senha !== confirmar) {
+
+        alert("As senhas não coincidem!");
+
+        return;
+      }
+
+      try {
+
+        const resposta = await fetch('/redefinir-senha', {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            senha
+          })
+
+        });
+
+        const dados = await resposta.json();
+
+
+        // SENHA ALTERADA
+        if (dados.sucesso) {
+
+          alert("Senha alterada com sucesso!");
+
+          window.location.href =
+            '/views/login.html';
+
+        }
+
+        // ERRO
+        else {
+
+          alert("Erro ao alterar senha!");
+
+        }
+
+      }
+
+      // ERRO SERVIDOR
+      catch (erro) {
+
+        console.log(erro);
+
+        alert("Erro ao conectar com o servidor!");
+
+      }
+
+    }
+
+  </script>
 
 </body>
+
 </html>
+
